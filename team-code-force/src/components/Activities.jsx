@@ -70,21 +70,21 @@ function Activities() {
   // Execute on every update to parkActivities
   useEffect(() => {
     // Confirm update of setParkActivities on page load
-    console.log('Park Activities update', parkActivities);
+    // console.log('Park Activities update', parkActivities);
   }, [parkActivities]);
 
 
   // Execute on every update to userActivities
   useEffect(() => {
     // Confirm update of setUserActivities in handleChange
-    console.log('Favorites update', userActivities);
+    // console.log('Favorites update', userActivities);
   }, [userActivities]);
 
 
   // Execute on every update to resultingParks
   useEffect(() => {
     // Confirm update of setResultingActivities in handleClick
-    console.log('Search update', resultingParks);
+    // console.log('Search update', resultingParks);
   }, [resultingParks]);
 
 
