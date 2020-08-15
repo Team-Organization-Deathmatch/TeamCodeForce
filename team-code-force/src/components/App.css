@@ -1,4 +1,9 @@
 /* @import "compass/css3"; */
+html {
+  height: 50%;
+  background-color: rgb(182, 103, 29);
+}
+
 .nps {
   margin-top: 25px;
   width: 300px;
@@ -65,6 +70,7 @@
   font-size: 35px;
   font-weight: bold;
   transition: 0.4s;
+  text-align: left;
 }
 
 /* Links on mouse-over */
@@ -99,3 +105,20 @@
   }
 
 }
+
+#logo #slogan #buttons {
+  opacity: 1;
+}
+
+#navbar {
+  background: url("https://sp-images.summitpost.org/731785.JPG?auto=format&fit=max&h=1000&ixlib=php-2.1.1&q=35&s=27385216f28e0d329508ea6fb3111e93") no-repeat center center;
+  background-size: cover;
+  position:relative;
+  height: 2%;
+  height:25vh;
+  z-index: 5;
+  padding-top: 0%;
+  padding-left: 0%;
+  opacity: 0.8;
+}
+

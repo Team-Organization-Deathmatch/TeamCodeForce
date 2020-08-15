@@ -6,7 +6,7 @@ const slideShow = [
   },
   {
     name: 'Bolinas Ridge',
-    image: 'https://www.nps.gov/common/uploads/structured_data/3C856E76-1DD8-B71B-0B2211CE7A2E227C.jpg',
+    image: 'https://justinsomnia.org/images/bolinas-ridge-trail.jpg',
     review: '"Giant Sequoia trees are the largest living things (by volume) on the planet. Though not the tallest trees, one feels miniature in their presence.."',
   },
   {
