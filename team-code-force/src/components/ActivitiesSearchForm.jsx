@@ -1,7 +1,15 @@
 import React from 'react';
 import ActivitiesList from './ActivitiesList';
 
-const ActivitiesSearchForm = ({parkActivities, handleChange, handleSearchClick}) => {
+function ActivitiesSearchForm({parkActivities, handleChange, handleSearchClick, clearSearch}) {
+
+
+  // // Activities Search Form Clear click handler
+  // // Clears Search Form and results
+  // const handleClearClick = (event) => {
+  //   clearSearch;
+  // }
+
 
   return (
     <form className="activities-search-form">
@@ -9,6 +17,7 @@ const ActivitiesSearchForm = ({parkActivities, handleChange, handleSearchClick})
       <ActivitiesList parkActivities={parkActivities} handleChange={handleChange}/>
       <br />
       <button className="button" type="button" onClick={handleSearchClick}>Search</button>
+      {/* <button className="button" type="button" onClick={handleClearClick}>Clear</button> */}
       <br />
     </form>
   );

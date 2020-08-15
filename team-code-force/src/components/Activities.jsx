@@ -31,6 +31,13 @@ function Activities() {
   }
 
 
+  // Clears Park Activities Search
+  const clearSearch = () => {
+    setUserActivities([]);
+    setResultingParks([]);
+  }
+
+
   // Activities change handler
   // Updates user selected activities
   const handleChange = (event) => {
@@ -58,6 +65,7 @@ function Activities() {
     // Multiple Select Box
     // Declare variable for selected options
     const selectedOptions = event.target.selectedOptions;
+    console.log(selectedOptions);
 
     // Declare variable for favorites array
     const selectedIds = Array.from(selectedOptions, (item) => item.id);
@@ -91,7 +99,7 @@ function Activities() {
   // Retrieve all activity categories in national parks upon initial rendering of page
   useEffect(() => {
     setIsLoading(true);
-    axios.get('https://developer.nps.gov/api/v1/activities?api_key=gwHKy0xMUoHYHE6MhzXkBbKYuPcejjLlkuMpJdK0')
+    axios.get(`https://developer.nps.gov/api/v1/activities?api_key=${nps.NPS_API_KEY}`)
       .then(res => {
         const currentActivities = res.data.data;
         setParkActivities(currentActivities);
@@ -110,7 +118,12 @@ function Activities() {
         <Loading />
       ) : (
         <div className="activities-search">
-          <ActivitiesSearchForm parkActivities={parkActivities} handleChange={handleChange} handleSearchClick={handleSearchClick} />
+          <ActivitiesSearchForm
+            parkActivities={parkActivities}
+            handleChange={handleChange}
+            handleSearchClick={handleSearchClick}
+            clearSearch={clearSearch}
+          />
           <hr />
           <ActivitiesParks resultingParks={resultingParks} />
         </div>
