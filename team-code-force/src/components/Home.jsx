@@ -55,18 +55,20 @@ const Home = () => {
 
   return (
     <div className="App">
-      <h1 id="logo">National Park Pal!</h1>
-      <h3>Search parks and activities to optimize your road trip experience!</h3>
       <Router>
         <main>
           <nav id="navbar">
             <div>
-              <NavLink activeClassName="active" exact to="/">Home</NavLink>
+          <h1 id="logo">National Park Pal</h1>
+          <h3 id="slogan">Search parks and activities to optimize your road trip experience!</h3>
+            </div>
+            <div id='buttons'>
               { !isAuthenticated && <Link to="/login" onClick={googleSignIn}>Login</Link> }
               { isAuthenticated && <Link to="/logout" onClick={logout}>Logout</Link> }
               <NavLink activeClassName="active" to="/parkpal">Park Search</NavLink>
               <NavLink activeClassName="active" to="/activity">Activity Search</NavLink>
               { isAuthenticated && <NavLink activeClassName="active" to="/profile">Profile</NavLink> }
+              <NavLink activeClassName="active" exact to="/">Home</NavLink>
             </div>
           </nav>
           <Switch>

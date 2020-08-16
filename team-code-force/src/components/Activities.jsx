@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Activities.css';
+import ActivitiesSearchForm from './ActivitiesSearchForm';
+import ActivitiesParks from './ActivitiesParks';
+import Loading from './Loading';
+import { nps } from './.config';
 
 
+// Search parks by activities available in national parks
 function Activities() {
 
   // Declare new state variables
@@ -16,7 +20,7 @@ function Activities() {
   // Updates resulting parks with user selected activities
   const handleSearchClick = (event) => {
     const searchIds = userActivities.join(',');
-    axios.get(`https://developer.nps.gov/api/v1/activities/parks?id=${searchIds}&api_key=gwHKy0xMUoHYHE6MhzXkBbKYuPcejjLlkuMpJdK0`)
+    axios.get(`https://developer.nps.gov/api/v1/activities/parks?id=${searchIds}&api_key=${nps.NPS_API_KEY}`)
       .then(res => {
         const currentParks = res.data.data;
         setResultingParks(currentParks);
@@ -24,6 +28,13 @@ function Activities() {
       .catch(error => {
         console.log(error)
       })
+  }
+
+
+  // Clears Park Activities Search
+  const clearSearch = () => {
+    setUserActivities([]);
+    setResultingParks([]);
   }
 
 
@@ -54,6 +65,7 @@ function Activities() {
     // Multiple Select Box
     // Declare variable for selected options
     const selectedOptions = event.target.selectedOptions;
+    console.log(selectedOptions);
 
     // Declare variable for favorites array
     const selectedIds = Array.from(selectedOptions, (item) => item.id);
@@ -87,7 +99,7 @@ function Activities() {
   // Retrieve all activity categories in national parks upon initial rendering of page
   useEffect(() => {
     setIsLoading(true);
-    axios.get('https://developer.nps.gov/api/v1/activities?api_key=gwHKy0xMUoHYHE6MhzXkBbKYuPcejjLlkuMpJdK0')
+    axios.get(`https://developer.nps.gov/api/v1/activities?api_key=${nps.NPS_API_KEY}`)
       .then(res => {
         const currentActivities = res.data.data;
         setParkActivities(currentActivities);
@@ -103,49 +115,21 @@ function Activities() {
   return (
     <div className="activities">
       {isLoading ? (
-        <p>Loading . . . </p>
+        <Loading />
       ) : (
         <div className="activities-search">
-          <form>
-            <h5>Choose your favorite park activities:</h5>
-            <select multiple={true} size={10} onChange={handleChange}>
-              {parkActivities.map(({id, name}) => {
-                return (
-                  <option key={id} id={id} value={name}>{name}</option>
-                )
-              })}
-            </select>
-            <br />
-            <br />
-            <button className="button" type="button" onClick={handleSearchClick}>Search</button>
-          </form>
+          <ActivitiesSearchForm
+            parkActivities={parkActivities}
+            handleChange={handleChange}
+            handleSearchClick={handleSearchClick}
+            clearSearch={clearSearch}
+          />
           <hr />
-          <h5>Parks with your favorite activities:</h5>
-          <ul>
-            {resultingParks.map(({id, name, parks}) => {
-              return (
-                <div className="selected-activity" key={id}>
-                  <li>{name}</li>
-                  <br />
-                  <ul>
-                    {parks.map(({states, fullName, url}) => {
-                      return (
-                        <div className="activity-park" key={url}>
-                          <li><a href={url} target="_blank" rel="noopener noreferrer">{fullName} </a></li>
-                        </div>
-                      )
-                    })}
-                  </ul>
-                  <br />
-                </div>
-              )
-            })}
-            </ul>
+          <ActivitiesParks resultingParks={resultingParks} />
         </div>
       )}
     </div>
   )
-
 }
 
 
