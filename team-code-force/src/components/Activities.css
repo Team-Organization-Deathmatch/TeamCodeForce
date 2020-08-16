@@ -1,1 +1,4 @@
-li {list-style-type: none;}
+
+.activities-list-item, .activity-park-list-item {
+  list-style-type: none;
+}
