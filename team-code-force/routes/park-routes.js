@@ -39,6 +39,22 @@ parkRouter.post('/wishlist/get', (req, res) => {
     });
 });
 
+parkRouter.delete('/wishlist/delete/:id/:name', (req, res) => {
+  const { id, name } = req.params;
+  // console.log(req.params);
+  UserParkWishList.destroy({
+    where: {
+      id_user: id,
+      name,
+    }
+  })
+  .then((data) => {
+   console.log('data', data);
+   res.json({message: 'successfully deleted entry'})
+  })
+  
+});
+
 parkRouter.post('/history', (req, res) => {
   const { name, userID, url } = req.body;
   Park.findOrCreate({
@@ -66,7 +82,7 @@ parkRouter.post('/history', (req, res) => {
   });
 });
 
-parkRouter.post('/history/get', (req, res) => {
+parkRouter.post('/history/get/', (req, res) => {
   const { userID } = req.body;
 
   UserParkHistory.findAll({
@@ -75,6 +91,22 @@ parkRouter.post('/history/get', (req, res) => {
     .then((parkName) => {
       res.send(parkName);
     });
+});
+
+parkRouter.delete('/history/delete/:id/:name', (req, res) => {
+  const { id, name } = req.params;
+  // console.log(req.params);
+  UserParkHistory.destroy({
+    where: {
+      id_user: id,
+      name,
+    }
+  })
+  .then((data) => {
+   console.log('data', data);
+   res.json({message: 'successfully deleted entry'})
+  })
+  
 });
 
 module.exports = {
