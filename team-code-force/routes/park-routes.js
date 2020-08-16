@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 const parkRouter = require('express').Router();
+const { response } = require('express');
 const { Park, UserParkWishList, UserParkHistory } = require('../db/index');
-// const User = require('../db/models/User');
 
 parkRouter.post('/wishlist', (req, res) => {
-  const { name, userID } = req.body;
+  const { name, userID, url } = req.body;
   Park.findOrCreate({
     where: { name },
     defaults: {
@@ -16,6 +16,8 @@ parkRouter.post('/wishlist', (req, res) => {
       defaults: {
         id_user: userID,
         id_park: park[0].id,
+        name: park[0].name,
+        url,
       },
     });
   }).then((entry) => {
@@ -26,83 +28,53 @@ parkRouter.post('/wishlist', (req, res) => {
   });
 });
 
-// parkRouter.post('./wishlist', (req, res) => {
-//   UserParkWishList.findAll({
-//     where: {
-//       { id_user: userID }
-//     }
-//     include: [
-//       {
-//         model: Park,
-//         where: {
-//           id_park:
-//         }
-//       }
-//     ]
-//   })
-// });
-// parkRouter.post('./wishlist/get', (req, res) => {
-//   User.hasMany(Park, { foreignKey: 'id_park' });
+parkRouter.post('/wishlist/get', (req, res) => {
+  const { userID } = req.body;
 
-//   const { userID } = req.body;
-//   const parkResult = [];
-//   UserParkWishList.findAll({
-//     where: { id_user: userID },
-
-//   })
-// });
-// parkRouter.post('/wishlist/get', (req, res) => {
-//   const { userID } = req.body;
-//   const parkResult = [];
-//   UserParkWishList.findAll({
-//     where: { id_user: userID },
-//   })
-//     .then((entry) => {
-//       console.log('entry', entry)
-//       entry.map((park) => {
-//       return  Park.findAll({
-//           where: { id: park.id_park },
-//         })
-//           .then((parkName) => {
-//             // console.log('Park: ', park);
-//             // console.log('Parkname"', parkName);
-//             // console.log('parkname we want', parkName[0].dataValues.name);
-//             parkResult.push(parkName[0].dataValues.name);
-//             console.log('parkresult array', parkResult);
-//           })
-//           .then(() => {
-//             console.log('park result at bottom', parkResult);
-//             res.send(parkResult);
-//           });
-//       // .catch(err => res.status(500).send('This is loop error: ', err));
-//       });
-//     })
-//       console.log('park result at very bottom', parkResult);
-//     // res.send(parkResult);
-//   // .catch(err => res.sendStatus(500));
-// });
+  UserParkWishList.findAll({
+    where: { id_user: userID },
+  })
+    .then((parkName) => {
+      res.send(parkName);
+    });
+});
 
 parkRouter.post('/history', (req, res) => {
-  const { name, userID } = req.body;
+  const { name, userID, url } = req.body;
   Park.findOrCreate({
     where: { name },
     defaults: {
       name,
     },
   }).then((park) => {
+    console.log(url);
     UserParkHistory.findOrCreate({
       where: { id_park: park[0].id },
       defaults: {
         id_user: userID,
         id_park: park[0].id,
+        name: park[0].name,
+        url,
       },
     });
-  }).then(() => {
+  }).then((test) => {
+    console.log(test);
     res.status(201).send({ message: 'Added to Database' });
   }).catch((err) => {
     console.log(err);
     res.sendStatus(500);
   });
+});
+
+parkRouter.post('/history/get', (req, res) => {
+  const { userID } = req.body;
+
+  UserParkHistory.findAll({
+    where: { id_user: userID },
+  })
+    .then((parkName) => {
+      res.send(parkName);
+    });
 });
 
 module.exports = {
