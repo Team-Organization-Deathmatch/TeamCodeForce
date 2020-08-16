@@ -63,12 +63,12 @@ const Home = () => {
           <h3 id="slogan">Search parks and activities to optimize your road trip experience!</h3>
             </div>
             <div id='buttons'>
-              <NavLink activeClassName="active" exact to="/">Home</NavLink>
               { !isAuthenticated && <Link to="/login" onClick={googleSignIn}>Login</Link> }
               { isAuthenticated && <Link to="/logout" onClick={logout}>Logout</Link> }
               <NavLink activeClassName="active" to="/parkpal">Park Search</NavLink>
               <NavLink activeClassName="active" to="/activity">Activity Search</NavLink>
               { isAuthenticated && <NavLink activeClassName="active" to="/profile">Profile</NavLink> }
+              <NavLink activeClassName="active" exact to="/">Home</NavLink>
             </div>
           </nav>
           <Switch>

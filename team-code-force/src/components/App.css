@@ -44,7 +44,7 @@ html {
 
 #navbar {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: white;
   padding: 20px; /* Large padding which will shrink on scroll (using JS) */
   transition: 0.4s; /* Adds a transition effect when the padding is decreased */
   position: static; /* Sticky/fixed navbar */
@@ -55,14 +55,15 @@ html {
 
 /* Style the navbar links */
 #navbar a {
-  float: left;
-  color: black;
+  float: right;
+  color: rgb(243, 243, 243);
   text-align: center;
   padding: 12px;
   text-decoration: none;
   font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
+  font-weight: bold;
 }
 
 /* Style the logo */
@@ -71,8 +72,14 @@ html {
   font-weight: bold;
   transition: 0.4s;
   text-align: left;
+  color: rgb(41, 20, 1);
+
 }
 
+#slogan {
+  float: center;
+  color: rgb(41, 20, 1);
+}
 /* Links on mouse-over */
 #navbar a:hover {
   background-color: #ddd;
@@ -81,7 +88,7 @@ html {
 
 /* Style the active/current link */
 #navbar a.active {
-  background-color: dodgerblue;
+  background-color: rgba(15, 117, 40, 0.89);
   color: white;
 }
 
@@ -120,5 +127,6 @@ html {
   padding-top: 0%;
   padding-left: 0%;
   opacity: 0.8;
+  width:100%;
 }
 
