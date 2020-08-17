@@ -1,36 +1,26 @@
 import React from 'react';
 import './Activities.css';
 
-
 // List national parks that have a particular activity
-function ActivitiesParks({resultingParks}) {
-
+function ActivitiesParks({ resultingParks }) {
   return (
     <div className="activities-parks">
-      <h4>Parks with your favorite activities:</h4>
-      <ul>
-      {resultingParks.map(({id, name, parks}) => {
-        return (
-          <div>
-            <li className="activities-list-item" key={id} id={id}><b>{name}</b></li>
-            <br/>
-            <div className="activity-parks-list">
-              <ul>
-                {parks.map(({states, fullName, url, parkCode}) => {
-                  return (
-                    <li className="activity-park-list-item" key={parkCode}><a href={url} target="_blank">{fullName}</a></li>
-                  )
-                })}
-              </ul>
+      <h2>Parks with your favorite activity:</h2>
+      {resultingParks.map(({ id, name, parks }) => (
+        <div className="selected-activity" key={id}>
+          <h2>{name}</h2>
+          <br />
+          {parks.map(({ fullName, url }) => (
+            <div className="activity-park" key={url}>
+              <li><a href={url} target="_blank" rel="noopener noreferrer">{fullName}</a></li>
+              <br />
             </div>
-            <br />
-            <br />
-          </div>
-        )
-      })}
-      </ul>
+          ))}
+          <br />
+        </div>
+      ))}
     </div>
   );
-};
+}
 
 export default ActivitiesParks;

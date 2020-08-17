@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable arrow-parens */
 import React from 'react';
-import axios from 'axios';
 
 const InfoWindow = ({
   url, name, desc, image, user,
@@ -26,23 +27,23 @@ const InfoWindow = ({
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, userID: data.id })
+      body: JSON.stringify({ name, userID: data.id, url }),
     };
-    fetch('http://localhost:8080/park/wishlist', requestOptions)
+    fetch('/park/wishlist', requestOptions)
       .then(response => response.json())
-      .then(data => console.log(data));
-  }
+      .then(parkData => console.log(parkData));
+  };
 
   const saveParkHistory = (data) => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, userID: data.id })
+      body: JSON.stringify({ name, userID: data.id, url }),
     };
-    fetch('http://localhost:8080/park/history', requestOptions)
+    fetch('/park/history', requestOptions)
       .then(response => response.json())
-      .then(data => console.log(data));
-  }
+      .then(responeJson => console.log(responeJson));
+  };
 
   return (
     <div style={infoWindowStyle}>
@@ -62,8 +63,13 @@ const InfoWindow = ({
         <br />
         <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
       </div>
-      <button style={{marginRight: '20px'}} onClick={() => saveWishlist(user)}>Add To WishList</button>
+      <br />
+      Add parks to your profile!
+      <br />
+      <br />
+      <button style={{ marginRight: '20px' }} onClick={() => saveWishlist(user)}>WishList</button>
       <button onClick={() => saveParkHistory(user)}>Seen It!</button>
+      <br />
     </div>
   );
 };

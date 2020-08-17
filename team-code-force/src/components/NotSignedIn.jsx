@@ -3,7 +3,7 @@ import SlideShow from './slideshow';
 
 const NotSignedIn = () => (
   <div>
-    <h3>Please Sign In</h3>
+    <h3>Please Sign In with Google</h3>
     <SlideShow />
   </div>
 );

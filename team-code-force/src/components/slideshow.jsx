@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Zoom } from 'react-slideshow-image';
 import slideShow from './slideshow-data';
@@ -13,12 +14,16 @@ const SlideShow = () => {
       <Zoom {...zoomInProperties}>
         { slideShow.map((each, index) => (
           <div key={index}>
-            <img style={{ 
-                paddingTop:'1%', 
-                width: '75%', 
-                height: '50%', 
-                
-              }} src={each.image} alt="park pic" />
+            <img
+              style={{
+                paddingTop: '1%',
+                width: '75%',
+                height: '50%',
+
+              }}
+              src={each.image}
+              alt="park pic"
+            />
             <h4>{each.name}</h4>
             <p>{each.review}</p>
           </div>

@@ -28,19 +28,20 @@ USER STORY:
 
 Developer Information:
 
+create database
 run npm install
 
 Add .env file inside of the team-code-force/src/components folder and the team-code-force folder with the following variables:
 Env variables:
-    SERVER_PORT=5000
-    DB_NAME=parksdb
-    DB_USER=root
-    DB_HOST=localhost
+    SERVER_PORT=
+    DB_NAME=
+    DB_USER=
+    DB_HOST=
     DB_PASS=
-    REACT_APP_SERVER_PORT=5000
+    REACT_APP_SERVER_PORT=
 
 * note - mysql database should be running when testing page
-* $ npm run dev - starts the server and runs build
+* $ npm run dev - starts the server and runs client build
 
 Npm Packages: 
 

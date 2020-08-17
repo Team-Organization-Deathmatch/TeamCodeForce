@@ -59,10 +59,10 @@ const Home = () => {
         <main>
           <nav id="navbar">
             <div>
-          <h1 id="logo">National Park Pal</h1>
-          <h3 id="slogan">Search parks and activities to optimize your road trip experience!</h3>
+              <h1 id="logo">National Park Pal</h1>
+              <h3 id="slogan">Search parks and activities to optimize your road trip experience!</h3>
             </div>
-            <div id='buttons'>
+            <div id="buttons">
               { !isAuthenticated && <Link to="/login" onClick={googleSignIn}>Login</Link> }
               { isAuthenticated && <Link to="/logout" onClick={logout}>Logout</Link> }
               <NavLink activeClassName="active" to="/parkpal">Park Search</NavLink>
@@ -87,7 +87,6 @@ const Home = () => {
               ) : <Redirect to="/notsignedin" />}
             <Route path="*" component={NotFound} />
           </Switch>
-          {/* <SlideShow /> */}
         </main>
       </Router>
     </div>
