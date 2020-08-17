@@ -1,6 +1,6 @@
+/* eslint-disable no-console */
 /* eslint-disable arrow-parens */
 import React from 'react';
-import axios from 'axios';
 
 const InfoWindow = ({
   url, name, desc, image, user,
@@ -29,7 +29,7 @@ const InfoWindow = ({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, userID: data.id, url }),
     };
-    fetch('http://localhost:5000/park/wishlist', requestOptions)
+    fetch('/park/wishlist', requestOptions)
       .then(response => response.json())
       .then(parkData => console.log(parkData));
   };
@@ -40,9 +40,9 @@ const InfoWindow = ({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, userID: data.id, url }),
     };
-    fetch('http://localhost:5000/park/history', requestOptions)
+    fetch('/park/history', requestOptions)
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(responeJson => console.log(responeJson));
   };
 
   return (
@@ -63,8 +63,13 @@ const InfoWindow = ({
         <br />
         <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
       </div>
-      <button style={{marginRight: '20px'}} onClick={() => saveWishlist(user)}>Add To WishList</button>
+      <br />
+      Add parks to your profile!
+      <br />
+      <br />
+      <button style={{ marginRight: '20px' }} onClick={() => saveWishlist(user)}>WishList</button>
       <button onClick={() => saveParkHistory(user)}>Seen It!</button>
+      <br />
     </div>
   );
 };

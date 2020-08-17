@@ -3,13 +3,11 @@ import ActivitiesList from './ActivitiesList';
 
 function ActivitiesSearchForm({parkActivities, handleChange, handleSearchClick, clearSearch}) {
 
-
   // // Activities Search Form Clear click handler
   // // Clears Search Form and results
   // const handleClearClick = (event) => {
   //   clearSearch;
   // }
-
 
   return (
     <form className="activities-search-form">
@@ -21,6 +19,6 @@ function ActivitiesSearchForm({parkActivities, handleChange, handleSearchClick, 
       <br />
     </form>
   );
-};
+}
 
 export default ActivitiesSearchForm;

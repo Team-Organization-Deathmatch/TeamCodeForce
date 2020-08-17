@@ -1,3 +1,4 @@
+/* eslint-disable arrow-parens */
 const authRouter = require('express').Router();
 const passport = require('passport');
 
@@ -16,7 +17,8 @@ authRouter.get('/login/failed', (req, res) => {
   res.status(404).json({
     success: false,
     message: 'user failed to authenticate',
-  });
+  })
+    .catch(err => res.status(500).send(err));
 });
 
 authRouter.get('/logout', (req, res) => {
@@ -47,10 +49,6 @@ const authCheck = (req, res, next) => {
   // if user is logged in
   next();
 };
-
-authRouter.get('/profile', authCheck, (req, res) => {
-  res.send('profile hit');
-});
 
 module.exports = {
   authRouter,

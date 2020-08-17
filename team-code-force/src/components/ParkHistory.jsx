@@ -1,24 +1,27 @@
+/* eslint-disable no-console */
+/* eslint-disable arrow-parens */
 import React, { useEffect, useState } from 'react';
 
 const ParkHistory = ({ userID }) => {
-  const [history, setHistory] = useState(['Please Add Some Parks!']);
+  const [history, setHistory] = useState([]);
+  useEffect(() => {
 
-  const getHistory = async (data) => {
+  }, [history]);
+
+  const getHistory = async () => {
     const requestOptions = {
-      method: 'POST',
+      method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userID: data }),
     };
-    const response = await fetch('/park/history/get', requestOptions);
-    response.json().then((data) => setHistory(data));
+    const response = await fetch(`/park/history/get/${userID}`, requestOptions);
+    response.json().then((responseJson) => setHistory(responseJson));
   };
 
   useEffect(() => {
-    getHistory(userID);
-  }, [userID]);
+    getHistory();
+  });
 
   const deleteHandler = (id, name) => {
-    // console.log('click');
     const requestOptions = {
       method: 'DELETE',
       credentials: 'include',
@@ -26,7 +29,7 @@ const ParkHistory = ({ userID }) => {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Credentials': true,
     };
-    return fetch(`http://localhost:5000/park/history/delete/${id}/${name}`, requestOptions)
+    return fetch(`/park/history/delete/${id}/${name}`, requestOptions)
       .then((response) => response.json())
       .then(data => console.log(data))
       .then(() => getHistory(userID));
@@ -36,10 +39,7 @@ const ParkHistory = ({ userID }) => {
     <div>
       {history.map((park) => (
         <h6>
-          <h3 key={park.id}>
-            {park.name} 
-            <button type="button" Click={() => deleteHandler(userID, park.name)}>X</button>
-          </h3>
+          <h3 key={park.id}>{park.name} <button type="button" onClick={() => deleteHandler(userID, park.name)}>X</button></h3>
           <small><a href={park.url} target="_blank" rel="noopener noreferrer">{park.url}</a></small>
         </h6>
       ))}

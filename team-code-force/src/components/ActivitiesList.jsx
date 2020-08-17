@@ -1,8 +1,7 @@
 import React from 'react';
 
 // List all activities possible in national parks
-function ActivitiesList({parkActivities, handleChange}) {
-
+function ActivitiesList({ parkActivities, handleChange }) {
   return (
     <div className="activities-list">
       {/* {parkActivities.map(({id, name}) => {
@@ -15,10 +14,10 @@ function ActivitiesList({parkActivities, handleChange}) {
         )
       })} */}
       <select multiple={true} size={10} onChange={handleChange}>
-        {parkActivities.map(({id, name}) => {
+        {parkActivities.map(({ id, name }) => {
           return (
             <option key={id} id={id} value={name}>{name}</option>
-          )
+          );
         })}
       </select>
     </div>

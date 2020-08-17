@@ -1,6 +1,6 @@
+/* eslint-disable arrow-parens */
 /* eslint-disable no-console */
 const parkRouter = require('express').Router();
-const { response } = require('express');
 const { Park, UserParkWishList, UserParkHistory } = require('../db/index');
 
 parkRouter.post('/wishlist', (req, res) => {
@@ -28,31 +28,31 @@ parkRouter.post('/wishlist', (req, res) => {
   });
 });
 
-parkRouter.post('/wishlist/get', (req, res) => {
-  const { userID } = req.body;
-
+parkRouter.get('/wishlist/get/:id', (req, res) => {
+  const { id } = req.params;
+  console.log(req.params);
   UserParkWishList.findAll({
-    where: { id_user: userID },
+    where: { id_user: id },
   })
     .then((parkName) => {
       res.send(parkName);
-    });
+    })
+    .catch(err => res.status(500).send(err));
 });
 
 parkRouter.delete('/wishlist/delete/:id/:name', (req, res) => {
   const { id, name } = req.params;
-  // console.log(req.params);
   UserParkWishList.destroy({
     where: {
       id_user: id,
       name,
-    }
+    },
   })
-  .then((data) => {
-   console.log('data', data);
-   res.json({message: 'successfully deleted entry'})
-  })
-  
+    .then((data) => {
+      console.log('data', data);
+      res.json({ message: 'successfully deleted entry' });
+    })
+    .catch(err => res.status(500).send(err));
 });
 
 parkRouter.post('/history', (req, res) => {
@@ -82,31 +82,30 @@ parkRouter.post('/history', (req, res) => {
   });
 });
 
-parkRouter.post('/history/get/', (req, res) => {
-  const { userID } = req.body;
-
+parkRouter.get('/history/get/:id', (req, res) => {
+  const { id } = req.params;
   UserParkHistory.findAll({
-    where: { id_user: userID },
+    where: { id_user: id },
   })
     .then((parkName) => {
       res.send(parkName);
-    });
+    })
+    .catch(err => res.status(500).send(err));
 });
 
 parkRouter.delete('/history/delete/:id/:name', (req, res) => {
   const { id, name } = req.params;
-  // console.log(req.params);
   UserParkHistory.destroy({
     where: {
       id_user: id,
       name,
-    }
+    },
   })
-  .then((data) => {
-   console.log('data', data);
-   res.json({message: 'successfully deleted entry'})
-  })
-  
+    .then((data) => {
+      console.log('data', data);
+      res.json({ message: 'successfully deleted entry' });
+    })
+    .catch(err => res.status(500).send(err));
 });
 
 module.exports = {

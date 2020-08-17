@@ -6,30 +6,19 @@ const Wishlist = ({ userID }) => {
 
   }, [wishList]);
 
-  const getWishList = async (data) => {
+  const getWishList = async () => {
     const requestOptions = {
-      method: 'POST',
+      method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userID: data }),
     };
-    const response = await fetch('/park/wishlist/get', requestOptions);
+    const response = await fetch(`/park/wishlist/get/${userID}`, requestOptions);
     response.json().then((data) => setWishList(data));
-  }
+  };
 
   useEffect(() => {
-    // async function getWishList(data) {
-    //   const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ userID: data }),
-    //   };
-    //   const response = await fetch('/park/wishlist/get', requestOptions);
-    //   response.json().then((data) => setWishList(data));
-    // }
     getWishList(userID);
-  }, [userID]);
+  });
 
-  
   const deleteHandler = (id, name) => {
     // console.log('click');
     const requestOptions = {
@@ -38,17 +27,21 @@ const Wishlist = ({ userID }) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       'Access-Control-Allow-Credentials': true,
-    }
-    return fetch(`http://localhost:5000/park/wishlist/delete/${id}/${name}`, requestOptions)
-    .then((response) => response.json())
-    .then(() => getWishList(userID))
-  }
+    };
+    return fetch(`park/wishlist/delete/${id}/${name}`, requestOptions)
+      .then((response) => response.json())
+      .then(() => getWishList(userID));
+  };
 
   return (
     <div>
       {wishList.map((park) => (
         <h6 key={park.id}>
-          <h3>{park.name} <button onClick={() => deleteHandler(userID, park.name)}>X</button></h3>
+          <h3>
+            {park.name}
+            {' '}
+            <button onClick={() => deleteHandler(userID, park.name)}>X</button>
+          </h3>
           <small><a href={park.url} target="_blank" rel="noopener noreferrer">{park.url}</a></small>
         </h6>
       ))}

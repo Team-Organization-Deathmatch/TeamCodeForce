@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable arrow-parens */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ActivitiesSearchForm from './ActivitiesSearchForm';
@@ -5,20 +7,17 @@ import ActivitiesParks from './ActivitiesParks';
 import Loading from './Loading';
 import { nps } from './.config';
 
-
 // Search parks by activities available in national parks
 function Activities() {
-
   // Declare new state variables
   const [parkActivities, setParkActivities] = useState([]);
   const [userActivities, setUserActivities] = useState([]);
   const [resultingParks, setResultingParks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-
   // Park Activities Search click handler
   // Updates resulting parks with user selected activities
-  const handleSearchClick = (event) => {
+  const handleSearchClick = () => {
     const searchIds = userActivities.join(',');
     axios.get(`https://developer.nps.gov/api/v1/activities/parks?id=${searchIds}&api_key=${nps.NPS_API_KEY}`)
       .then(res => {
@@ -26,17 +25,15 @@ function Activities() {
         setResultingParks(currentParks);
       })
       .catch(error => {
-        console.log(error)
-      })
-  }
-
+        console.log(error);
+      });
+  };
 
   // Clears Park Activities Search
   const clearSearch = () => {
     setUserActivities([]);
     setResultingParks([]);
-  }
-
+  };
 
   // Activities change handler
   // Updates user selected activities
@@ -72,8 +69,7 @@ function Activities() {
 
     // Update favorite activities state
     setUserActivities(selectedIds);
-  }
-
+  };
 
   // Execute on every update to parkActivities
   useEffect(() => {
@@ -81,20 +77,17 @@ function Activities() {
     // console.log('Park Activities update', parkActivities);
   }, [parkActivities]);
 
-
   // Execute on every update to userActivities
   useEffect(() => {
     // Confirm update of setUserActivities in handleChange
     // console.log('Favorites update', userActivities);
   }, [userActivities]);
 
-
   // Execute on every update to resultingParks
   useEffect(() => {
     // Confirm update of setResultingActivities in handleClick
     // console.log('Search update', resultingParks);
   }, [resultingParks]);
-
 
   // Retrieve all activity categories in national parks upon initial rendering of page
   useEffect(() => {
@@ -107,9 +100,8 @@ function Activities() {
       })
       .catch(error => {
         console.log(error);
-      })
-  }, [])
-
+      });
+  }, []);
 
   // Render Activities component
   return (
@@ -129,8 +121,7 @@ function Activities() {
         </div>
       )}
     </div>
-  )
+  );
 }
-
 
 export default Activities;
