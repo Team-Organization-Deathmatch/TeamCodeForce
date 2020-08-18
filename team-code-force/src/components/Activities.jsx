@@ -6,6 +6,8 @@ import ActivitiesSearchForm from './ActivitiesSearchForm';
 import ActivitiesParks from './ActivitiesParks';
 import Loading from './Loading';
 //import { nps } from './.config';
+import { NPS_API_KEY } from './.config.js';
+console.log(NPS_API_KEY);
 require('dotenv').config();
 
 // Search parks by activities available in national parks
@@ -22,7 +24,7 @@ function Activities() {
     const searchIds = userActivities.join(',');
     axios
       .get(
-        `https://developer.nps.gov/api/v1/activities/parks?id=${searchIds}&api_key=${process.env.NPS_API_KEY}`
+        `https://developer.nps.gov/api/v1/activities/parks?id=${searchIds}&api_key=${NPS_API_KEY}`
       )
       .then((res) => {
         const currentParks = res.data.data;
@@ -97,9 +99,7 @@ function Activities() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(
-        `https://developer.nps.gov/api/v1/activities?api_key=${process.env.NPS_API_KEY}`
-      )
+      .get(`https://developer.nps.gov/api/v1/activities?api_key=${NPS_API_KEY}`)
       .then((res) => {
         const currentActivities = res.data.data;
         setParkActivities(currentActivities);
