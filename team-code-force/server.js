@@ -8,7 +8,9 @@ const passport = require('passport');
 require('./passport/GoogleStrategy');
 const { authRouter } = require('./routes/auth-routes');
 const { parkRouter } = require('./routes/park-routes');
-const { session } = require('./.config.js');
+// const { session } = require('./.config.js');
+// ADD IN REQUIRE DOT ENV
+require('dotenv').config();
 require('./db/models/Park');
 require('./db/index.js');
 
@@ -18,17 +20,22 @@ const app = express();
 const { SERVER_PORT } = process.env || 8080;
 
 app.set('trust proxy', 1);
-app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: 'GET, HEAD, PUT, PATCH, DELETE',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET, HEAD, PUT, PATCH, DELETE',
+    credentials: true,
+  })
+);
 
 // set up cookie
-app.use(cookieSession({
-  maxAge: 24 * 60 * 60 * 1000,
-  keys: [session.cookieKey],
-}));
+app.use(
+  cookieSession({
+    // maxAge: 24 * 60 * 60 * 1000,
+    keys: ['hello', 'test'],
+    name: 'login-session',
+  })
+);
 
 app.use(cookieParser());
 

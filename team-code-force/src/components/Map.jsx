@@ -4,7 +4,8 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
-import { google } from './.config';
+//import { google } from './.config';
+require('dotenv').config();
 
 const Map = ({ parks, user }) => {
   const [myMarkers, setMarkers] = React.useState([]);
@@ -37,24 +38,27 @@ const Map = ({ parks, user }) => {
 
     const directionsService = new mapsReference.DirectionsService();
     const directionsDisplay = new mapsReference.DirectionsRenderer();
-    directionsService.route({
-      origin: start,
-      destination: myMarkers[myMarkers.length - 1].name,
-      waypoints: waypnts,
-      travelMode: 'DRIVING',
-      optimizeWaypoints: true,
-    }, (response, status) => {
-      if (status === 'OK') {
-        directionsDisplay.setDirections(response);
-        //
-        const routePolyline = new mapsReference.Polyline({
-          path: response.routes[0].overview_path,
-        });
-        routePolyline.setMap(mapReference);
-      } else {
-        console.error(`Directions request failed due to ${status}`);
+    directionsService.route(
+      {
+        origin: start,
+        destination: myMarkers[myMarkers.length - 1].name,
+        waypoints: waypnts,
+        travelMode: 'DRIVING',
+        optimizeWaypoints: true,
+      },
+      (response, status) => {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+          //
+          const routePolyline = new mapsReference.Polyline({
+            path: response.routes[0].overview_path,
+          });
+          routePolyline.setMap(mapReference);
+        } else {
+          console.error(`Directions request failed due to ${status}`);
+        }
       }
-    });
+    );
   };
 
   const onKeyUp = (event) => {
@@ -72,14 +76,20 @@ const Map = ({ parks, user }) => {
           Where Are You Starting From?
           <br />
           <br />
-          <input type="text" placeholder="Starting Point" value={start} onChange={handleStart} onKeyUp={onKeyUp} />
+          <input
+            type='text'
+            placeholder='Starting Point'
+            value={start}
+            onChange={handleStart}
+            onKeyUp={onKeyUp}
+          />
         </label>
         <button
           onClick={() => {
             handleDirections(start);
             setStart('');
           }}
-          type="submit"
+          type='submit'
         >
           Get Route!
         </button>
@@ -87,7 +97,7 @@ const Map = ({ parks, user }) => {
       <br />
       <div style={{ height: '80vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: google.MAPS_API_KEY }}
+          bootstrapURLKeys={{ key: process.env.MAPS_API_KEY }}
           center={center}
           zoom={5}
           yesIWantToUseGoogleMapApiInternals
