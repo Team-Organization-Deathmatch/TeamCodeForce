@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
+require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { google } = require('../.config.js');
+// const { google } = require('../.config.js');
 const { User } = require('../db');
 
 passport.serializeUser((user, done) => {
@@ -17,9 +18,9 @@ passport.deserializeUser((id, done) => {
 
 passport.use(
   new GoogleStrategy({
-    callbackURL: '/auth/google/redirect',
-    clientID: google.clientID,
-    clientSecret: google.clientSecret,
+    clientID: process.env.CLIENTID,
+    clientSecret: process.env.CLIENTSECRET,
+    callbackURL: 'http://localhost:8080/google/callback',
   },
   (accessToken, refreshToken, profile, email, done) => {
     User.findOrCreate({
