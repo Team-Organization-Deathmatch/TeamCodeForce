@@ -2,7 +2,12 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import {
-  BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink,
+  Redirect,
 } from 'react-router-dom';
 import './App.css';
 import SlideShow from './slideshow';
@@ -21,15 +26,18 @@ const Home = () => {
   const { REACT_APP_SERVER_PORT } = process.env || 8080;
 
   useEffect(() => {
-    fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/auth/login/success`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
-      },
-    })
+    fetch(
+      `http://localhost:${process.env.REACT_APP_SERVER_PORT}/auth/login/success`,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+      }
+    )
       .then((response) => {
         if (response.status === 200) return response.json();
         throw new Error('authentication failed');
@@ -47,45 +55,79 @@ const Home = () => {
 
   const logout = () => {
     console.log('logging out');
-    window.open(`http://localhost:${REACT_APP_SERVER_PORT}/auth/logout`, '_self');
+    window.open(
+      `http://localhost:${REACT_APP_SERVER_PORT}/auth/logout`,
+      '_self'
+    );
   };
   const googleSignIn = () => {
-    window.open(`http://localhost:${REACT_APP_SERVER_PORT}/auth/google`, '_self');
+    window.open(
+      `http://localhost:${REACT_APP_SERVER_PORT}/auth/google`,
+      '_self'
+    );
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <main>
-          <nav id="navbar">
+          <nav id='navbar'>
             <div>
-              <h1 id="logo">National Park Pal</h1>
-              <h3 id="slogan">Search parks and activities to optimize your road trip experience!</h3>
+              <h1 id='logo'>National Park Pal</h1>
+              <h3 id='slogan'>
+                Search parks and activities to optimize your road trip
+                experience!
+              </h3>
             </div>
-            <div id="buttons">
-              { !isAuthenticated && <Link to="/login" onClick={googleSignIn}>Login</Link> }
-              { isAuthenticated && <Link to="/logout" onClick={logout}>Logout</Link> }
-              <NavLink activeClassName="active" to="/parkpal">Park Search</NavLink>
-              <NavLink activeClassName="active" to="/activity">Activity Search</NavLink>
-              { isAuthenticated && <NavLink activeClassName="active" to="/profile">Profile</NavLink> }
-              <NavLink activeClassName="active" exact to="/">Home</NavLink>
+            <div id='buttons'>
+              {!isAuthenticated && (
+                <Link to='/login' onClick={googleSignIn}>
+                  Login
+                </Link>
+              )}
+              {isAuthenticated && (
+                <Link to='/logout' onClick={logout}>
+                  Logout
+                </Link>
+              )}
+              <NavLink activeClassName='active' to='/parkpal'>
+                Park Search
+              </NavLink>
+              <NavLink activeClassName='active' to='/activity'>
+                Activity Search
+              </NavLink>
+              {isAuthenticated && (
+                <NavLink activeClassName='active' to='/profile'>
+                  Profile
+                </NavLink>
+              )}
+              <NavLink activeClassName='active' exact to='/'>
+                Home
+              </NavLink>
             </div>
           </nav>
           <Switch>
-            <Route exact path="/" component={SlideShow} />
-            <Route path="/login" component={SlideShow} />
-            <Route path="/logout" component={SlideShow} />
-            <Route path="/notsignedin" component={NotSignedIn} />
+            <Route exact path='/' component={SlideShow} />
+            <Route path='/login' component={SlideShow} />
+            <Route path='/logout' component={SlideShow} />
+            <Route path='/notsignedin' component={NotSignedIn} />
             {/* <Route path="/dashboard"  isAuthenticated={isAuthenticated} />} /> */}
-            { isAuthenticated
-              ? (
-                <>
-                  <Route path="/profile" render={(props) => <Profile {...props} user={user} />} />
-                  <Route path="/parkpal" render={(props) => <ParkPal {...props} user={user} />} />
-                  <Route path="/activity" component={Activities} />
-                </>
-              ) : <Redirect to="/notsignedin" />}
-            <Route path="*" component={NotFound} />
+            {isAuthenticated ? (
+              <>
+                <Route
+                  path='/profile'
+                  render={(props) => <Profile {...props} user={user} />}
+                />
+                <Route
+                  path='/parkpal'
+                  render={(props) => <ParkPal {...props} user={user} />}
+                />
+                <Route path='/activity' component={Activities} />
+              </>
+            ) : (
+              <Redirect to='/notsignedin' />
+            )}
+            <Route path='*' component={NotFound} />
           </Switch>
         </main>
       </Router>

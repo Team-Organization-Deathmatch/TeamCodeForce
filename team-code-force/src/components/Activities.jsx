@@ -5,7 +5,8 @@ import axios from 'axios';
 import ActivitiesSearchForm from './ActivitiesSearchForm';
 import ActivitiesParks from './ActivitiesParks';
 import Loading from './Loading';
-import { nps } from './.config';
+//import { nps } from './.config';
+require('dotenv').config();
 
 // Search parks by activities available in national parks
 function Activities() {
@@ -19,12 +20,15 @@ function Activities() {
   // Updates resulting parks with user selected activities
   const handleSearchClick = () => {
     const searchIds = userActivities.join(',');
-    axios.get(`https://developer.nps.gov/api/v1/activities/parks?id=${searchIds}&api_key=${nps.NPS_API_KEY}`)
-      .then(res => {
+    axios
+      .get(
+        `https://developer.nps.gov/api/v1/activities/parks?id=${searchIds}&api_key=${process.env.NPS_API_KEY}`
+      )
+      .then((res) => {
         const currentParks = res.data.data;
         setResultingParks(currentParks);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -92,24 +96,27 @@ function Activities() {
   // Retrieve all activity categories in national parks upon initial rendering of page
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`https://developer.nps.gov/api/v1/activities?api_key=${nps.NPS_API_KEY}`)
-      .then(res => {
+    axios
+      .get(
+        `https://developer.nps.gov/api/v1/activities?api_key=${process.env.NPS_API_KEY}`
+      )
+      .then((res) => {
         const currentActivities = res.data.data;
         setParkActivities(currentActivities);
         setIsLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
 
   // Render Activities component
   return (
-    <div className="activities">
+    <div className='activities'>
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="activities-search">
+        <div className='activities-search'>
           <ActivitiesSearchForm
             parkActivities={parkActivities}
             handleChange={handleChange}

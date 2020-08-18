@@ -4,14 +4,14 @@ import './App.css';
 import axios from 'axios';
 import SimpleMap from './Map';
 import RouteForm from './RouteForm';
-import { nps } from './.config';
+// import { nps } from './.config';
 import Spinner from './spinner';
+require('dotenv').config();
 
 function ParkPal({ user }) {
   const [parks, setParks] = useState([]);
   const [loading, setLoading] = useState(null);
-  useEffect(() => {
-  }, [parks]);
+  useEffect(() => {}, [parks]);
   const getPark = (userState) => {
     setLoading(true);
     console.log(loading);
@@ -121,21 +121,39 @@ function ParkPal({ user }) {
     } else if (state === 'washington dc') {
       state = 'dc';
     }
-    axios.get(`https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${nps.NPS_API_KEY}`)
-      .then((res) => res.data.data.forEach((park) => {
-        if (park.latitude.length && !parks.find((entry) => entry.name === park.name) && park.designation === 'National Park') {
-          // eslint-disable-next-line no-shadow
-          setParks((parks) => ([...parks, {
-            lat: parseFloat(park.latitude), lng: parseFloat(park.longitude), name: `${park.name} ${park.designation}`, description: park.description, url: park.url, searchName: park.name, image: park.images[0].url,
-          }]));
-        }
-      }))
+    axios
+      .get(
+        `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${process.env.NPS_API_KEY}`
+      )
+      .then((res) =>
+        res.data.data.forEach((park) => {
+          if (
+            park.latitude.length &&
+            !parks.find((entry) => entry.name === park.name) &&
+            park.designation === 'National Park'
+          ) {
+            // eslint-disable-next-line no-shadow
+            setParks((parks) => [
+              ...parks,
+              {
+                lat: parseFloat(park.latitude),
+                lng: parseFloat(park.longitude),
+                name: `${park.name} ${park.designation}`,
+                description: park.description,
+                url: park.url,
+                searchName: park.name,
+                image: park.images[0].url,
+              },
+            ]);
+          }
+        })
+      )
       .then(() => {
         setLoading(false);
       });
   };
   return (
-    <div className="ParkPal">
+    <div className='ParkPal'>
       {loading && <Spinner />}
       <RouteForm getpark={getPark} />
       <SimpleMap parks={parks} user={user} />
