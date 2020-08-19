@@ -12,6 +12,13 @@ module.exports = (sequelize, DataTypes) => sequelize.define('User', {
   image: {
     type: DataTypes.STRING,
   },
+  id_route: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Route',
+      key: 'id',
+    },
+  },
 }, {
   freezeTableName: true,
   timestamps: false,
