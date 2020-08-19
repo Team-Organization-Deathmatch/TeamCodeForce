@@ -1,7 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
 
-
 const getWeatherData = (cityName) => {
     axios({
         "method":"GET",
@@ -12,7 +11,7 @@ const getWeatherData = (cityName) => {
         "x-rapidapi-key":process.env.WEATHER_API,
         "useQueryString":true
         },"params":{
-        "q":cityname,
+        "q":cityName,
         "cnt":"1",
         }
         })
