@@ -5,6 +5,7 @@ const UserModel = require('./models/User');
 const ParkModel = require('./models/Park');
 const UserParkHistoryModel = require('./models/UserParkHistory');
 const UserParkWishListModel = require('./models/UserParkWishList');
+const RouteModel = require('./models/Route');
 
 const { DB_HOST } = process.env || 'localhost';
 const { DB_NAME, DB_USER, DB_PASS } = process.env;
@@ -18,6 +19,7 @@ const User = UserModel(sequelize, Sequelize);
 const Park = ParkModel(sequelize, Sequelize);
 const UserParkHistory = UserParkHistoryModel(sequelize, Sequelize);
 const UserParkWishList = UserParkWishListModel(sequelize, Sequelize);
+const Route = RouteModel(sequelize, Sequelize);
 
 const connection = async () => {
   try {
@@ -46,4 +48,5 @@ module.exports = {
   Park,
   UserParkHistory,
   UserParkWishList,
+  Route,
 };
