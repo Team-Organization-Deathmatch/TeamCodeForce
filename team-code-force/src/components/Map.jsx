@@ -4,8 +4,9 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
-//import { google } from './.config';
-require('dotenv').config();
+import { MAPS_API_KEY } from './.config.js';
+// import {} from 'dotenv/config';
+//require('dotenv').config();
 
 const Map = ({ parks, user }) => {
   const [myMarkers, setMarkers] = React.useState([]);
@@ -13,6 +14,8 @@ const Map = ({ parks, user }) => {
   const [mapsReference, setMapsReference] = useState(null);
   const [center, setCenter] = useState({ lat: 39.82, lng: -98.57 });
   const [start, setStart] = useState('');
+
+  //console.log(process.env.MAPS_API_KEY, 'TESTING');
 
   useEffect(() => {
     setMarkers(parks);
@@ -97,7 +100,7 @@ const Map = ({ parks, user }) => {
       <br />
       <div style={{ height: '80vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.MAPS_API_KEY }}
+          bootstrapURLKeys={{ key: MAPS_API_KEY }}
           center={center}
           zoom={5}
           yesIWantToUseGoogleMapApiInternals

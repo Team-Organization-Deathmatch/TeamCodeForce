@@ -17,6 +17,8 @@ require('./db/index.js');
 dotenv.config();
 const app = express();
 
+// this is just a test to see if my git will show commits
+
 const { SERVER_PORT } = process.env || 8080;
 
 app.set('trust proxy', 1);

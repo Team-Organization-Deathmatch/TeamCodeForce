@@ -6,7 +6,8 @@ import SimpleMap from './Map';
 import RouteForm from './RouteForm';
 // import { nps } from './.config';
 import Spinner from './spinner';
-require('dotenv').config();
+//require('dotenv').config();
+import { NPS_API_KEY } from './.config.js';
 
 function ParkPal({ user }) {
   const [parks, setParks] = useState([]);
@@ -123,7 +124,7 @@ function ParkPal({ user }) {
     }
     axios
       .get(
-        `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${process.env.NPS_API_KEY}`
+        `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${NPS_API_KEY}`
       )
       .then((res) =>
         res.data.data.forEach((park) => {
