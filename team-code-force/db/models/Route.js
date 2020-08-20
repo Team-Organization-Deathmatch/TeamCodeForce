@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => sequelize.define('Route', {
   id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
@@ -19,19 +19,35 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Route', {
   location5: {
     type: DataTypes.STRING,
   },
-  Date1: {
+  //start and end date
+  DateStart1: {
     type: DataTypes.DATEONLY,
   },
-  Date2: {
+  DateEnd1: {
     type: DataTypes.DATEONLY,
   },
-  Date3: {
+  DateStart2: {
     type: DataTypes.DATEONLY,
   },
-  Date4: {
+  DateEnd2: {
     type: DataTypes.DATEONLY,
   },
-  Date5: {
+  DateStart3: {
+    type: DataTypes.DATEONLY,
+  },
+  DateEnd3: {
+    type: DataTypes.DATEONLY,
+  },
+  DateStart4: {
+    type: DataTypes.DATEONLY,
+  },
+  DateEnd4: {
+    type: DataTypes.DATEONLY,
+  },
+  DateStart5: {
+    type: DataTypes.DATEONLY,
+  },
+  DateEnd5: {
     type: DataTypes.DATEONLY,
   },
 }, {
