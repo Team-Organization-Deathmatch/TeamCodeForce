@@ -2,25 +2,27 @@ import React, { useEffect, useState } from 'react';
 
 const Wishlist = ({ userID }) => {
   const [wishList, setWishList] = useState(['Please Add Some Parks!']);
-  useEffect(() => {
-
-  }, [wishList]);
+  useEffect(() => {}, [wishList]);
 
   const getWishList = async () => {
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    const response = await fetch(`/park/wishlist/get/${userID}`, requestOptions);
+    const response = await fetch(
+      `/park/wishlist/get/${userID}`,
+      requestOptions
+    );
     response.json().then((data) => setWishList(data));
+    console.log('hello');
   };
 
-  useEffect(() => {
-    getWishList(userID);
-  });
+  // useEffect(() => {
+  //   getWishList(userID);
+  // });
 
   const deleteHandler = (id, name) => {
-    // console.log('click');
+    console.log('click');
     const requestOptions = {
       method: 'DELETE',
       credentials: 'include',
@@ -36,14 +38,17 @@ const Wishlist = ({ userID }) => {
   return (
     <div>
       {wishList.map((park) => (
-        <h6 key={park.id}>
+        <div key={park.id}>
           <h3>
-            {park.name}
-            {' '}
+            {park.name}{' '}
             <button onClick={() => deleteHandler(userID, park.name)}>X</button>
           </h3>
-          <small><a href={park.url} target="_blank" rel="noopener noreferrer">{park.url}</a></small>
-        </h6>
+          <small>
+            <a href={park.url} target='_blank' rel='noopener noreferrer'>
+              {park.url}
+            </a>
+          </small>
+        </div>
       ))}
     </div>
   );
