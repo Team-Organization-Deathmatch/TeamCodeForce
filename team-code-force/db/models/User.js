@@ -23,8 +23,12 @@ module.exports = (sequelize, DataTypes) => sequelize.define('User', {
     },
   },
   id_routeInvite: {
-    type: DataTypes.INTEGER
-  }
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Route',
+      key: 'id',
+    },
+  },
 }, {
   freezeTableName: true,
   timestamps: false,
