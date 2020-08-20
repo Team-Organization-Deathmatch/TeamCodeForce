@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => sequelize.define('User', {
       key: 'id',
     },
   },
+  id_routeInvite: {
+    type: DataTypes.INTEGER
+  }
 }, {
   freezeTableName: true,
   timestamps: false,
