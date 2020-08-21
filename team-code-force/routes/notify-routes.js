@@ -1,7 +1,7 @@
 const notifyRouter = require('express').Router();
 const { Park, UserParkWishList, UserParkHistory, User } = require('../db/index');
 require('dotenv').config();
-const { routeUsers } = require('../db/database')
+const { routeUsersPhone } = require('../db/database')
 // const accountSid = process.env.TWILIO_SID;
 // const authToken = process.env.TWILIO_TOKEN;
 
@@ -9,7 +9,7 @@ const { routeUsers } = require('../db/database')
 
 notifyRouter.get('/routechange', (req, res) => {
   console.log('hit the route /test!');
-  routeUsers(null).then((data) => {
+  routeUsersPhone(null).then((data) => {
     console.log(data, 'THIS IS YOUR DATA!');
     res.status(200);
     res.send(data);
