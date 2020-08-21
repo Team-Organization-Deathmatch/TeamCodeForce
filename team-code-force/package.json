@@ -29,6 +29,7 @@
     "react-slideshow-image": "^3.0.2",
     "sequelize": "^6.3.4",
     "serve": "^11.3.2",
+    "twilio": "^3.49.0",
     "typescript": "^3.9.7"
   },
   "scripts": {
