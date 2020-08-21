@@ -10,15 +10,10 @@ const Profile = ({ user }) => {
   };
 
   return (
-    <div className="container">
-      <h2>
-        Welcome To Your Profile
-        {' '}
-        {user.name}
-        !
-      </h2>
+    <div className='container'>
+      <h2>Welcome To Your Profile {user.name}!</h2>
       <div>
-        <img src={user.image} alt="profile" style={imageStyle} />
+        <img src={user.image} alt='profile' style={imageStyle} />
         <br />
         <br />
         <h1 style={{ float: 'left', marginLeft: '100px' }}>

@@ -17,6 +17,8 @@ import Profile from './Profile';
 import ParkPal from './ParkPal';
 import Activities from './Activities';
 import NotSignedIn from './NotSignedIn';
+import FriendRoutes from './FriendRoutes';
+import Invites from './Invites';
 
 const Home = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -93,6 +95,12 @@ const Home = () => {
               <NavLink activeClassName='active' to='/parkpal'>
                 Park Search
               </NavLink>
+              <NavLink activeClassName='active' to='/invites'>
+                Invites
+              </NavLink>
+              <NavLink activeClassName='active' to='/friendRoutes'>
+                Friend Routes
+              </NavLink>
               <NavLink activeClassName='active' to='/activity'>
                 Activity Search
               </NavLink>
@@ -123,6 +131,8 @@ const Home = () => {
                   render={(props) => <ParkPal {...props} user={user} />}
                 />
                 <Route path='/activity' component={Activities} />
+                <Route path='/invites' component={Invites} />
+                <Route path='/friendRoutes' component={FriendRoutes} />
               </>
             ) : (
               <Redirect to='/notsignedin' />
