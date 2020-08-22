@@ -2,7 +2,7 @@
 /* eslint-disable arrow-parens */
 import React from 'react';
 
-const InfoWindow = ({ url, name, desc, image, user }) => {
+const InfoWindow = ({ url, name, desc, image, user, lat, lng }) => {
   const infoWindowStyle = {
     position: 'relative',
     bottom: 150,
@@ -22,6 +22,7 @@ const InfoWindow = ({ url, name, desc, image, user }) => {
   };
 
   const saveWishlist = (data) => {
+    console.log(data, 'data');
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -43,8 +44,17 @@ const InfoWindow = ({ url, name, desc, image, user }) => {
       .then((responeJson) => console.log(responeJson));
   };
 
-  const addToRoutes = () => {
-    console.log('THIS WILL ADD TO ROUTES');
+  const addToRoutes = (data) => {
+    console.log(data);
+    console.log({ lat, lng });
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, userID: data.id, lat, lng }),
+    };
+    fetch('/route/put', requestOptions)
+      .then((response) => response.json())
+      .then((responseJson) => console.log(responseJson));
   };
 
   return (
@@ -74,7 +84,7 @@ const InfoWindow = ({ url, name, desc, image, user }) => {
         WishList
       </button>
       <button onClick={() => saveParkHistory(user)}>Seen It!</button>
-      <button onClick={() => addToRoutes()}>Add To Routes</button>
+      <button onClick={() => addToRoutes(user)}>Add To Routes</button>
       <br />
     </div>
   );
