@@ -7,7 +7,7 @@ const Invites = () => {
   let [users, setUsers] = useState()
 
   useEffect(() => {
-    axios.get(`http://localhost:${REACT_APP_SERVER_PORT}/notify/routechange`).then((data) => {
+    axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/invite`, { number: '+12163859616'}).then((data) => {
       console.log(data);
     })
     .catch(err => console.log(err))
