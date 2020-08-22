@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const MyRoute = ({ user }) => {
   const sendNumberAndUser = (friendNumber) => {
@@ -24,7 +24,7 @@ const MyRoute = ({ user }) => {
     .then((responseJson) => console.log(responseJson))
   }
 
-  }
+  
 
   const [myRoutes, myRoutesUpdate] = useState([]);
 
@@ -45,7 +45,7 @@ const MyRoute = ({ user }) => {
         placeholder='Enter a friends phone #'
       />
       <div class='Routes'>
-        {myRoutes.map((route) => {
+        {/* {myRoutes.map((route) => {
           <div key={route.id}>
             <br />
             <div>{route.park}</div>
@@ -54,7 +54,7 @@ const MyRoute = ({ user }) => {
             <div>{route.startDate}</div>
             <div> {route.endDate} </div>
           </div>;
-        })}
+        })} */}
       </div>
     </div>
   );
