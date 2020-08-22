@@ -9,6 +9,10 @@ module.exports = (app) => {
     target: `http://localhost:${SERVER_PORT}`,
   }));
 
+  app.use(createProxyMiddleware('/notify', {
+    target: `http://localhost:${SERVER_PORT}`,
+  }));
+
   app.use(createProxyMiddleware('/park', {
     target: `http://localhost:${SERVER_PORT}`,
   }));
