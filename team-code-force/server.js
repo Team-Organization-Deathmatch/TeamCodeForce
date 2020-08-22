@@ -9,6 +9,7 @@ require('./passport/GoogleStrategy');
 const { authRouter } = require('./routes/auth-routes');
 const { parkRouter } = require('./routes/park-routes');
 const { notifyRouter } = require('./routes/notify-routes');
+const bodyParser = require('body-parser')
 // const { session } = require('./.config.js');
 // ADD IN REQUIRE DOT ENV
 require('dotenv').config();
@@ -31,6 +32,9 @@ app.use(
     credentials: true,
   })
 );
+
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.json())
 
 // set up cookie
 app.use(

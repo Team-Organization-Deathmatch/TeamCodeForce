@@ -1,6 +1,7 @@
 const { Park, UserParkWishList, UserParkHistory, User, Route } = require('../db/index');
 const { getWeatherData } = require('../weather/weather');
   // id_route is a key on user that references the route they are part of
+  
   const routeUsersPhone = (routeId) => {
     return User.findAll({ where : {
       id_route: routeId
@@ -13,17 +14,43 @@ const { getWeatherData } = require('../weather/weather');
     })
   }
   const findRouteWeather = (routeId, date) => {
-    //are they traveling?
-   return Route.findOne({ where: {
-      id_route: routeId
+    let dateNums = [1, 2, 3, 4, 5];
+    let dates = [];
+    let flag = [false, 0];
+    let lat;
+    let lon;
+    return Route.findOne({ where: {
+      id: routeId
     }}).then((route) => {
-      console.log(route)
-      return route;
+      let routeInfo = route.dataValues;
+      dateNums.forEach(num => {
+        dates.push([route.dataValues[`dateStart${num}`], route.dataValues[`dateEnd${num}`]]);
+      })
+      dates.forEach((tuple, index) => {
+        if(tuple.includes(date)){
+          flag[0] = true;
+          flag[1] = index + 1;
+        }
+      })
+      if(flag[0] === true){
+        lat = route.dataValues[`lat${flag[1]}`]
+        lon = route.dataValues[`lon${flag[1]}`]
+      }
+      
+      getWeatherData('55.7558', '37.6173').then((data) => {
+        console.log(data, 'YOLO FOR LIFE');
+      })
     })
-    //if so where?
+
   }
+
+  const userRouteInvite = () => {
+
+  }
+
+
 module.exports = {
   routeUsersPhone,
   findRouteWeather,
-
+  userRouteInvite,
 }
