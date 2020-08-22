@@ -1,4 +1,5 @@
 const { Park, UserParkWishList, UserParkHistory, User, Route } = require('../db/index');
+const { getWeatherData } = require('../weather/weather');
   // id_route is a key on user that references the route they are part of
   const routeUsersPhone = (routeId) => {
     return User.findAll({ where : {
@@ -11,9 +12,18 @@ const { Park, UserParkWishList, UserParkHistory, User, Route } = require('../db/
       return userPhoneNumbers;
     })
   }
-  const findUserByPhoneNumber = () => {
-    
+  const findRouteWeather = (routeId, date) => {
+    //are they traveling?
+   return Route.findOne({ where: {
+      id_route: routeId
+    }}).then((route) => {
+      console.log(route)
+      return route;
+    })
+    //if so where?
   }
 module.exports = {
   routeUsersPhone,
+  findRouteWeather,
+
 }

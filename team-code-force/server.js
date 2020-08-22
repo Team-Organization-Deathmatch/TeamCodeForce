@@ -50,7 +50,6 @@ app.use(passport.session());
 app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/park', parkRouter);
-
 app.use('/notify', notifyRouter);
 app.listen(SERVER_PORT, () => {
   console.log(`Server is listening on ${SERVER_PORT}`);
