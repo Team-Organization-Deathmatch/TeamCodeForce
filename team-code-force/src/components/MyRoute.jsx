@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MyRoute = ({ user }) => {
   const sendNumberAndUser = (friendNumber) => {
@@ -13,26 +13,58 @@ const MyRoute = ({ user }) => {
       .then((responeJson) => console.log(responeJson));
   };
 
-  const getMyRoute = () => {
+  const getMyRoute = async () => {
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({user}),
     };
-    fetch('/route/get/:id', requestOptions)
-    .then((response) => response.json())
-    .then((responseJson) => console.log(responseJson))
-  }
+    console.log(`${user.id}`, 'USER');
+    const response = await fetch(`/route/get/${user.id}`, requestOptions);
+    response
+      .json()
+      .then((data) => {
+        console.log(data, 'HERE iS THE DATA');
+        return response;
+      })
+      .catch((err) => console.log(err));
+    // return response;
+    // .then((response) => console.log(response))
+    // .then((responseJson) => console.log(responseJson))
+    // .catch((err) => console.log(err));
+    return response;
+  };
 
-  }
+  const [myRoutes, myRoutesUpdate] = useState([{ park1: 5 }]);
 
-  const [myRoutes, myRoutesUpdate] = useState([]);
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    fetch(`/route/get/${user.id}`, requestOptions)
+      .then((data) => {
+        return data.json();
+      })
+      .then((response) => {
+        console.log(response);
+        myRoutesUpdate(response);
+      });
+  }, []);
+  // useEffect(() => {
+  //   getMyRoute().then((data) => {
+  //     console.log(data, 'THIS IS A TEST');
+  //     myRoutesUpdate([{ dateEnd1: 7 }]);
+  //   });
+  // }, []);
+  // myRoutesUpdate([{ id: 5 }]);
+  // useEffect(() => getMyRoute());
 
   return (
     <div>
       <div> MY ROUTES TESTING </div>
       <button
         onClick={() => {
+          getMyRoute();
           console.log(document.getElementById('friendNumber').value);
         }}
       >
@@ -44,7 +76,7 @@ const MyRoute = ({ user }) => {
         type='text'
         placeholder='Enter a friends phone #'
       />
-      <div class='Routes'>
+      {/* <div class='Routes'>
         {myRoutes.map((route) => {
           <div key={route.id}>
             <br />
@@ -55,6 +87,14 @@ const MyRoute = ({ user }) => {
             <div> {route.endDate} </div>
           </div>;
         })}
+      </div> */}
+      <div>
+        {myRoutes.map((route) => (
+          <div>
+            <div> {route.park1} </div>
+            <div> {route.dateStart1} </div>
+          </div>
+        ))}
       </div>
     </div>
   );

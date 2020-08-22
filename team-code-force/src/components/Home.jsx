@@ -132,7 +132,10 @@ const Home = () => {
                 />
                 <Route path='/activity' component={Activities} />
                 <Route path='/invites' component={Invites} />
-                <Route path='/myRoute' component={MyRoute} />
+                <Route
+                  path='/myRoute'
+                  render={(props) => <MyRoute {...props} user={user} />}
+                />
               </>
             ) : (
               <Redirect to='/notsignedin' />
