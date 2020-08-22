@@ -4,50 +4,82 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Route', {
     autoIncrement: true,
     primaryKey: true
   },
-  location1: {
+  //make it long/lat for each location & make location park
+  park1: {
     type: DataTypes.STRING,
   },
-  location2: {
+  lat1: {
+    type:DataTypes.DECIMAL
+    //double check number type for sequelize
+  },
+  lon1: {
+    type:DataTypes.DECIMAL
+    //double check number type for sequelize
+  },
+  park2: {
     type: DataTypes.STRING,
   },
-  location3: {
+  lat2: {
+    type:DataTypes.DECIMAL
+  },
+  lon2: {
+    type:DataTypes.DECIMAL
+  },
+  park3: {
     type: DataTypes.STRING,
   },
-  location4: {
+  lat3: {
+    type:DataTypes.DECIMAL
+  },
+  lon3: {
+    type:DataTypes.DECIMAL
+  },
+  park4: {
     type: DataTypes.STRING,
   },
-  location5: {
+  lat4: {
+    type:DataTypes.DECIMAL
+  },
+  lon4: {
+    type:DataTypes.DECIMAL
+  },
+  park5: {
     type: DataTypes.STRING,
   },
-  //start and end date
-  DateStart1: {
+  lat5: {
+    type:DataTypes.DECIMAL
+  },
+  lon5: {
+    type:DataTypes.DECIMAL
+  },
+  dateStart1: {
     type: DataTypes.DATEONLY,
   },
-  DateEnd1: {
+  dateEnd1: {
     type: DataTypes.DATEONLY,
   },
-  DateStart2: {
+  dateStart2: {
     type: DataTypes.DATEONLY,
   },
-  DateEnd2: {
+  dateEnd2: {
     type: DataTypes.DATEONLY,
   },
-  DateStart3: {
+  dateStart3: {
     type: DataTypes.DATEONLY,
   },
-  DateEnd3: {
+  dateEnd3: {
     type: DataTypes.DATEONLY,
   },
-  DateStart4: {
+  dateStart4: {
     type: DataTypes.DATEONLY,
   },
-  DateEnd4: {
+  dateEnd4: {
     type: DataTypes.DATEONLY,
   },
-  DateStart5: {
+  dateStart5: {
     type: DataTypes.DATEONLY,
   },
-  DateEnd5: {
+  dateEnd5: {
     type: DataTypes.DATEONLY,
   },
 }, {
