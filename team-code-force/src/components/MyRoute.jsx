@@ -34,7 +34,7 @@ const MyRoute = ({ user }) => {
     return response;
   };
 
-  const [myRoutes, myRoutesUpdate] = useState([{ dateEnd1: 5 }]);
+  const [myRoutes, myRoutesUpdate] = useState([{ park1: 5 }]);
 
   useEffect(() => {
     const requestOptions = {
@@ -45,7 +45,10 @@ const MyRoute = ({ user }) => {
       .then((data) => {
         return data.json();
       })
-      .then((response) => console.log([response[0].dateEnd1]));
+      .then((response) => {
+        console.log(response);
+        myRoutesUpdate(response);
+      });
   }, []);
   // useEffect(() => {
   //   getMyRoute().then((data) => {
@@ -87,7 +90,10 @@ const MyRoute = ({ user }) => {
       </div> */}
       <div>
         {myRoutes.map((route) => (
-          <div> {route.dateEnd1} </div>
+          <div>
+            <div> {route.park1} </div>
+            <div> {route.dateStart1} </div>
+          </div>
         ))}
       </div>
     </div>
