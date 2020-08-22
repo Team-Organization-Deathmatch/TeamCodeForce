@@ -1,7 +1,7 @@
 const notifyRouter = require('express').Router();
 const { Park, UserParkWishList, UserParkHistory, User } = require('../db/index');
 require('dotenv').config();
-const { routeUsersPhone, findRouteWeather } = require('../db/database')
+const { routeUsersPhone, findRouteWeather, userRouteInvite } = require('../db/database')
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_TOKEN;
 const { sendNotification } = require('../sms/twilio')
@@ -22,11 +22,22 @@ notifyRouter.get('/routechange', (req, res) => {
 })
 
 notifyRouter.post('/dailyweather', (req, res) => {
-  console.log(req.user.dataValues.id_route);
-  findRouteWeather(req.user.dataValues.id_route).then(data => {
-    console.log(data);
+  let date = new Date()
+  let dateString;
+   dateString = date.toString();
+   dateString = dateString.slice(4, 15);
+   /// Aug 22 2020
+  
+  console.log(dateString);
+  findRouteWeather(req.user.dataValues.id_route, '2020-08-22').then(data => {
+    //console.log(data);
   })
   res.send('you hit weather')
+})
+
+notifyRouter.post('/invite', (req, res) => {
+  console.log(req.body);
+  //userRouteInvite()
 })
 
 module.exports = {
