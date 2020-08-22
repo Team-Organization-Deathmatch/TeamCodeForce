@@ -13,18 +13,46 @@ const MyRoute = ({ user }) => {
       .then((responeJson) => console.log(responeJson));
   };
 
-  const getMyRoute = () => {
+  const getMyRoute = async () => {
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('/route/get/:id', requestOptions)
-      .then((response) => console.log(response))
-      .then((responseJson) => console.log(responseJson));
+    console.log(`${user.id}`, 'USER');
+    const response = await fetch(`/route/get/${user.id}`, requestOptions);
+    response
+      .json()
+      .then((data) => {
+        console.log(data, 'HERE iS THE DATA');
+        return response;
+      })
+      .catch((err) => console.log(err));
+    // return response;
+    // .then((response) => console.log(response))
+    // .then((responseJson) => console.log(responseJson))
+    // .catch((err) => console.log(err));
+    return response;
   };
 
-  const [myRoutes, myRoutesUpdate] = useState([{ id: 5 }]);
+  const [myRoutes, myRoutesUpdate] = useState([{ dateEnd1: 5 }]);
 
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    fetch(`/route/get/${user.id}`, requestOptions)
+      .then((data) => {
+        return data.json();
+      })
+      .then((response) => console.log([response[0].dateEnd1]));
+  }, []);
+  // useEffect(() => {
+  //   getMyRoute().then((data) => {
+  //     console.log(data, 'THIS IS A TEST');
+  //     myRoutesUpdate([{ dateEnd1: 7 }]);
+  //   });
+  // }, []);
   // myRoutesUpdate([{ id: 5 }]);
   // useEffect(() => getMyRoute());
 
@@ -59,7 +87,7 @@ const MyRoute = ({ user }) => {
       </div> */}
       <div>
         {myRoutes.map((route) => (
-          <div> {route.id} </div>
+          <div> {route.dateEnd1} </div>
         ))}
       </div>
     </div>
