@@ -17,7 +17,7 @@ import Profile from './Profile';
 import ParkPal from './ParkPal';
 import Activities from './Activities';
 import NotSignedIn from './NotSignedIn';
-import FriendRoutes from './FriendRoutes';
+import MyRoute from './MyRoute';
 import Invites from './Invites';
 import axios from 'axios';
 
@@ -105,8 +105,8 @@ const Home = () => {
               <NavLink activeClassName='active' to='/invites'>
                 Invites
               </NavLink>
-              <NavLink activeClassName='active' to='/friendRoutes'>
-                Friend Routes
+              <NavLink activeClassName='active' to='/myRoute'>
+                My Route
               </NavLink>
               <NavLink activeClassName='active' to='/activity'>
                 Activity Search
@@ -139,7 +139,7 @@ const Home = () => {
                 />
                 <Route path='/activity' component={Activities} />
                 <Route path='/invites' component={Invites} />
-                <Route path='/friendRoutes' component={FriendRoutes} />
+                <Route path='/myRoute' component={MyRoute} />
               </>
             ) : (
               <Redirect to='/notsignedin' />

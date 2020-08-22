@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 import NPSLogo from './images/NPS.png';
 import InfoWindow from './InfoWindow';
 
-const Marker = ({
-  url, name, desc, imagePark, user,
-}) => {
+const Marker = ({ url, name, desc, imagePark, user, lat, lng }) => {
   const [isShown, setIsShown] = useState(false);
 
   const [isHovered, setIsHovered] = useState(false);
@@ -18,7 +16,7 @@ const Marker = ({
 
   return (
     <div
-      role="button"
+      role='button'
       onClick={() => clickHandler()}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
@@ -26,9 +24,19 @@ const Marker = ({
         setIsShown(false);
       }}
     >
-      <img className="npmarker" src={NPSLogo} alt="NPS Logo" />
-      {isShown && <InfoWindow name={name} desc={desc} url={url} image={imagePark} user={user}/>}
-      {isHovered && (<div className="marker">{name}</div>)}
+      <img className='npmarker' src={NPSLogo} alt='NPS Logo' />
+      {isShown && (
+        <InfoWindow
+          name={name}
+          desc={desc}
+          url={url}
+          image={imagePark}
+          user={user}
+          lat={lat}
+          lng={lng}
+        />
+      )}
+      {isHovered && <div className='marker'>{name}</div>}
     </div>
   );
 };
