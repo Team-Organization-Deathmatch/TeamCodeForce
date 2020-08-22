@@ -10,34 +10,38 @@ parkRouter.post('/wishlist', (req, res) => {
     defaults: {
       name,
     },
-  }).then((park) => {
-    UserParkWishList.findOrCreate({
-      where: { id_park: park[0].id },
-      defaults: {
-        id_user: userID,
-        id_park: park[0].id,
-        name: park[0].name,
-        url,
-      },
+  })
+    .then((park) => {
+      UserParkWishList.findOrCreate({
+        where: { id_park: park[0].id },
+        defaults: {
+          id_user: userID,
+          id_park: park[0].id,
+          name: park[0].name,
+          url,
+        },
+      });
+    })
+    .then((entry) => {
+      res.status(201).send({ entry });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
     });
-  }).then((entry) => {
-    res.status(201).send({ entry });
-  }).catch((err) => {
-    console.log(err);
-    res.sendStatus(500);
-  });
 });
 
 parkRouter.get('/wishlist/get/:id', (req, res) => {
   const { id } = req.params;
   console.log(req.params);
+  console.log('HELLOOOOOOOOOOO');
   UserParkWishList.findAll({
     where: { id_user: id },
   })
     .then((parkName) => {
       res.send(parkName);
     })
-    .catch(err => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err));
 });
 
 parkRouter.delete('/wishlist/delete/:id/:name', (req, res) => {
@@ -52,7 +56,7 @@ parkRouter.delete('/wishlist/delete/:id/:name', (req, res) => {
       console.log('data', data);
       res.json({ message: 'successfully deleted entry' });
     })
-    .catch(err => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err));
 });
 
 parkRouter.post('/history', (req, res) => {
@@ -62,24 +66,27 @@ parkRouter.post('/history', (req, res) => {
     defaults: {
       name,
     },
-  }).then((park) => {
-    console.log(url);
-    UserParkHistory.findOrCreate({
-      where: { id_park: park[0].id },
-      defaults: {
-        id_user: userID,
-        id_park: park[0].id,
-        name: park[0].name,
-        url,
-      },
+  })
+    .then((park) => {
+      console.log(url);
+      UserParkHistory.findOrCreate({
+        where: { id_park: park[0].id },
+        defaults: {
+          id_user: userID,
+          id_park: park[0].id,
+          name: park[0].name,
+          url,
+        },
+      });
+    })
+    .then((test) => {
+      console.log(test);
+      res.status(201).send({ message: 'Added to Database' });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
     });
-  }).then((test) => {
-    console.log(test);
-    res.status(201).send({ message: 'Added to Database' });
-  }).catch((err) => {
-    console.log(err);
-    res.sendStatus(500);
-  });
 });
 
 parkRouter.get('/history/get/:id', (req, res) => {
@@ -90,7 +97,7 @@ parkRouter.get('/history/get/:id', (req, res) => {
     .then((parkName) => {
       res.send(parkName);
     })
-    .catch(err => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err));
 });
 
 parkRouter.delete('/history/delete/:id/:name', (req, res) => {
@@ -105,7 +112,7 @@ parkRouter.delete('/history/delete/:id/:name', (req, res) => {
       console.log('data', data);
       res.json({ message: 'successfully deleted entry' });
     })
-    .catch(err => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err));
 });
 
 module.exports = {
