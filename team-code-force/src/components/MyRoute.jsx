@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MyRoute = ({ user }) => {
   const sendNumberAndUser = (friendNumber) => {
@@ -17,22 +17,23 @@ const MyRoute = ({ user }) => {
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({user}),
     };
     fetch('/route/get/:id', requestOptions)
-    .then((response) => response.json())
-    .then((responseJson) => console.log(responseJson))
-  }
+      .then((response) => console.log(response))
+      .then((responseJson) => console.log(responseJson));
+  };
 
-  }
+  const [myRoutes, myRoutesUpdate] = useState([{ id: 5 }]);
 
-  const [myRoutes, myRoutesUpdate] = useState([]);
+  // myRoutesUpdate([{ id: 5 }]);
+  // useEffect(() => getMyRoute());
 
   return (
     <div>
       <div> MY ROUTES TESTING </div>
       <button
         onClick={() => {
+          getMyRoute();
           console.log(document.getElementById('friendNumber').value);
         }}
       >
@@ -44,7 +45,7 @@ const MyRoute = ({ user }) => {
         type='text'
         placeholder='Enter a friends phone #'
       />
-      <div class='Routes'>
+      {/* <div class='Routes'>
         {myRoutes.map((route) => {
           <div key={route.id}>
             <br />
@@ -55,6 +56,11 @@ const MyRoute = ({ user }) => {
             <div> {route.endDate} </div>
           </div>;
         })}
+      </div> */}
+      <div>
+        {myRoutes.map((route) => (
+          <div> {route.id} </div>
+        ))}
       </div>
     </div>
   );
