@@ -8,11 +8,13 @@ const passport = require('passport');
 require('./passport/GoogleStrategy');
 const { authRouter } = require('./routes/auth-routes');
 const { parkRouter } = require('./routes/park-routes');
+const { notifyRouter } = require('./routes/notify-routes');
 // const { session } = require('./.config.js');
 // ADD IN REQUIRE DOT ENV
 require('dotenv').config();
 require('./db/models/Park');
 require('./db/index.js');
+
 
 dotenv.config();
 const app = express();
@@ -49,6 +51,7 @@ app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/park', parkRouter);
 
+app.use('/notify', notifyRouter);
 app.listen(SERVER_PORT, () => {
   console.log(`Server is listening on ${SERVER_PORT}`);
 });
