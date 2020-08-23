@@ -9,6 +9,7 @@ const client = require('twilio')(accountSid, authToken);
 const { getWeatherData } = require('../weather/weather');
 
 notifyRouter.get('/routechange', (req, res) => {
+  //need to pass in a route's id to identify the user objects that have it, not null
   routeUsersPhone(null).then((data) => {
     //update with a for each
     data.forEach(number => {
@@ -29,15 +30,18 @@ notifyRouter.post('/dailyweather', (req, res) => {
    /// Aug 22 2020
   
   console.log(dateString);
-  findRouteWeather(req.user.dataValues.id_route, '2020-08-22').then(data => {
-    //console.log(data);
+  findRouteWeather(req.user.dataValues.id_route, '2020-08-22')
+  .then(data => {
+    console.log(data, 'in notify routes');
+    sendNotification(`The weather at your current location is ${data[3]}, with a temperature of ${data[0]}. It feels like ${data[1]} and the humidity is ${data[2]}`, '+12163859616');
+    res.send(data)
   })
-  res.send('you hit weather')
+  //send the weather data?
 })
 
 notifyRouter.post('/invite', (req, res) => {
   console.log(req.body);
-  //userRouteInvite()
+  sendNotification(`you have been invited to join a route!`, '+12163859616');
 })
 
 module.exports = {

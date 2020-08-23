@@ -21,7 +21,8 @@ const { getWeatherData } = require('../weather/weather');
     let lon;
     return Route.findOne({ where: {
       id: routeId
-    }}).then((route) => {
+    }})
+    .then((route) => {
       let routeInfo = route.dataValues;
       dateNums.forEach(num => {
         dates.push([route.dataValues[`dateStart${num}`], route.dataValues[`dateEnd${num}`]]);
@@ -36,15 +37,19 @@ const { getWeatherData } = require('../weather/weather');
         lat = route.dataValues[`lat${flag[1]}`]
         lon = route.dataValues[`lon${flag[1]}`]
       }
-      
-      getWeatherData('55.7558', '37.6173').then((data) => {
-        console.log(data, 'YOLO FOR LIFE');
+      // all we have to do here is get lat/lon and convert the temperature from kelvins
+      // then send a text message to the user about their weather for the day
+      return getWeatherData('55.7558', '37.6173')
+      .then((data) => {
+        console.log(data.weather[0].description, data.main.temp, data.main.feels_like, 'YOLO FOR LIFE');
+        let description = data.weather[0].main;
+        let temp = Math.trunc((data.main.temp * 1.8) - 457);
+        let feels = Math.trunc((data.main.feels_like * 1.8) - 457);
+        let humidity = data.main.humidity;
+        //console.log(temp, feels)
+        return [temp, feels, humidity, description];
       })
     })
-
-  }
-
-  const userRouteInvite = () => {
 
   }
 
@@ -52,5 +57,4 @@ const { getWeatherData } = require('../weather/weather');
 module.exports = {
   routeUsersPhone,
   findRouteWeather,
-  userRouteInvite,
 }
