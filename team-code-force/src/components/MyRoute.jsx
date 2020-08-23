@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MyRoute = ({ user }) => {
   const sendNumberAndUser = (friendNumber) => {
@@ -33,8 +37,49 @@ const MyRoute = ({ user }) => {
     // .catch((err) => console.log(err));
     return response;
   };
+  let counterStart = 0, counterEnd = 0;
+  const handleDate = (date) => {
+    setDate(date);
+  };
+
+  const calenderStart = () => {
+    counterStart++;
+    return <form onSubmit={() => {
+      console.log(recordDate, counterStart);
+    }}>
+      <div className="form-group">
+      <DatePicker
+        selected={recordDate}
+        onChange={handleDate}
+        name="startDate"
+        title="Enter a start date"
+        dateFormat="MM-dd-yyyy"
+      />
+      <button className="btn btn-primary">Show Date</button>
+    </div>
+  </form>
+  };
+
+  const calenderEnd = () => {
+    counterEnd++;
+    return <form onSubmit={() => {
+      console.log(recordDate);
+    }}>
+      <div className="form-group">
+      <DatePicker
+        selected={recordDate, counterEnd}
+        onChange={handleDate}
+        name="startDate"
+        title="Enter an end date"
+        dateFormat="MM-dd-yyyy"
+      />
+      <button className="btn btn-primary">Show Date</button>
+    </div>
+  </form>
+  }
 
   const [myRoutes, myRoutesUpdate] = useState([{ park1: 5 }]);
+  const [recordDate, setDate] = useState('');
 
   useEffect(() => {
     const requestOptions = {
@@ -97,24 +142,24 @@ const MyRoute = ({ user }) => {
         {myRoutes.map((route) => (
           <div>
             <h2> First Park </h2>
-            <div> Date Start: {route.dateStart1 || null} </div>
-            <div> Date End: {route.dateEnd1} </div>
+            <div> Date Start: {calenderStart()} </div>
+            <div> Date End: {calenderEnd()} </div>
             <div> Park: {route.park1} </div>
             <h2> Second Park </h2>
-            <div> Date Start: {route.dateStart2} </div>
-            <div> Date End: {route.dateEnd2} </div>
+            <div> Date Start: {calenderStart()} </div>
+            <div> Date End: {calenderEnd()} </div>
             <div> Park: {route.park2} </div>
             <h2> Third Park </h2>
-            <div> Date Start: {route.dateStart3} </div>
-            <div> Date End: {route.dateEnd3} </div>
+            <div> Date Start: {calenderStart()} </div>
+            <div> Date End: {calenderEnd()} </div>
             <div> Park: {route.park3} </div>
             <h2> Fourth Park </h2>
-            <div> Date Start: {route.dateStart4} </div>
-            <div> Date End: {route.dateEnd4} </div>
+            <div> Date Start: {calenderStart()} </div>
+            <div> Date End: {calenderEnd()} </div>
             <div> Park: {route.park4} </div>
             <h2> Fifth Park </h2>
-            <div> Date Start: {route.dateStart5} </div>
-            <div> Date End: {route.dateEnd5} </div>
+            <div> Date Start: {calenderStart()} </div>
+            <div> Date End: {calenderEnd()} </div>
             <div> Park: {route.park5} </div>
           </div>
         ))}

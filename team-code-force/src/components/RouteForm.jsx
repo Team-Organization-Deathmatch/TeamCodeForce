@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const RouteForm = ({ getpark }) => {
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
