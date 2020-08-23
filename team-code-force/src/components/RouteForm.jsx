@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RouteForm = ({ getpark }) => {
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [recordDate, setDate] = useState('');
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleDate = (date) => {
+    setDate(date);
+  };
+
+  const handleSubmit = (event) => {
+    console.log(event.target.value, 'BOOOM');
   };
 
   const onKeyUp = (event) => {
@@ -23,6 +36,9 @@ const RouteForm = ({ getpark }) => {
           <br />
           <input type="text" placeholder="State Name" value={searchTerm} onChange={handleChange} onKeyUp={onKeyUp} />
         </label>
+        <label>
+          Select a startDate:
+        </label>
         <button
           type="submit"
           onClick={() => {
@@ -33,6 +49,17 @@ const RouteForm = ({ getpark }) => {
           Add To Trip!
         </button>
       </div>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <DatePicker
+            selected={recordDate}
+            onChange={handleDate}
+            name="startDate"
+            dateFormat="MM/dd/yyyy"
+          />
+          <button className="btn btn-primary">Show Date</button>
+        </div>
+      </form>
     </div>
   );
 };
