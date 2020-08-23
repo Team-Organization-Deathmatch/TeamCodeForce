@@ -166,8 +166,8 @@ routeRouter.post('/acceptInvite', (req, res) => {
 //get user id from phone number
 routeRouter.post('/sendInvite', (req, res) => {
   //res.statusCode(201);
-  // console.log(req.body.phoneNumber);
-  // console.log(req.user.id);
+  console.log(req.body.phoneNumber);
+  console.log(req.user.id);
   User.update(
     {
       id_routeInvite: req.user.id_route,
