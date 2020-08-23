@@ -11,15 +11,11 @@ module.exports = (app) => {
     })
   );
 
-  app.use(
-    createProxyMiddleware('/park', {
-      target: `http://localhost:${SERVER_PORT}`,
-    })
-  );
+  app.use(createProxyMiddleware('/notify', {
+    target: `http://localhost:${SERVER_PORT}`,
+  }));
 
-  app.use(
-    createProxyMiddleware('/route', {
-      target: `http://localhost:${SERVER_PORT}`,
-    })
-  );
+  app.use(createProxyMiddleware('/park', {
+    target: `http://localhost:${SERVER_PORT}`,
+  }));
 };

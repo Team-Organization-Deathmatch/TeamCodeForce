@@ -19,6 +19,7 @@ import Activities from './Activities';
 import NotSignedIn from './NotSignedIn';
 import MyRoute from './MyRoute';
 import Invites from './Invites';
+import axios from 'axios';
 
 const Home = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -54,6 +55,12 @@ const Home = () => {
         console.error(error);
       });
   }, []);
+
+  useEffect(() => {
+    axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/dailyweather`, user).then(() => {
+      console.log('returned from journey');
+    })
+  })
 
   const logout = () => {
     console.log('logging out');
