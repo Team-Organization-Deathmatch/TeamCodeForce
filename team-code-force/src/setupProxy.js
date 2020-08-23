@@ -11,10 +11,25 @@ module.exports = (app) => {
     })
   );
 
-  app.use(createProxyMiddleware('/notify', {
-    target: `http://localhost:${SERVER_PORT}`,
-  }));
+  app.use(
+    createProxyMiddleware('/notify', {
+      target: `http://localhost:${SERVER_PORT}`,
+    })
+  );
 
+<<<<<<< HEAD
+  app.use(
+    createProxyMiddleware('/park', {
+      target: `http://localhost:${SERVER_PORT}`,
+    })
+  );
+
+  app.use(
+    createProxyMiddleware('/route', {
+      target: `http://localhost:${SERVER_PORT}`,
+    })
+  );
+=======
   app.use(createProxyMiddleware('/route', {
     target: `http://localhost:${SERVER_PORT}`,
   }));
@@ -22,4 +37,5 @@ module.exports = (app) => {
   app.use(createProxyMiddleware('/park', {
     target: `http://localhost:${SERVER_PORT}`,
   }));
+>>>>>>> e0d4b6050bcb8a6dcdfca0798672d713e4ec1871
 };

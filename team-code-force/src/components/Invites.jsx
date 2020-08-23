@@ -7,6 +7,23 @@ const { REACT_APP_SERVER_PORT } = process.env;
 const Invites = ({ user }) => {
   let [users, setUsers] = useState();
 
+<<<<<<< HEAD
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:8000/notify/routechange')
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
+  //end seb & c's
+
+  //Max's crazy code
+  // =======
+  // const { REACT_APP_SERVER_PORT } = process.env;
+  // const Invites = () => {
+  //   let [users, setUsers] = useState()
+=======
   useEffect(() => {
     // axios
     //   .get(`http://localhost:${REACT_APP_SERVER_PORT}/notify/routechange`)
@@ -19,16 +36,17 @@ const Invites = ({ user }) => {
 // =======
 // const Invites = () => {
 //   let [users, setUsers] = useState()
+>>>>>>> e0d4b6050bcb8a6dcdfca0798672d713e4ec1871
 
-//   useEffect(() => {
-//     axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/invite`, { number: '+12163859616'}).then((data) => {
-//       console.log(data);
-//     })
-//     .catch(err => console.log(err))
-//   }, [])
-// >>>>>>> master
+  //   useEffect(() => {
+  //     axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/invite`, { number: '+12163859616'}).then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch(err => console.log(err))
+  //   }, [])
+  // >>>>>>> master
 
-//seb and c's add's
+  //seb and c's add's
   const acceptInvite = () => {
     console.log(user);
     const requestOptions = {
