@@ -11,6 +11,7 @@ const Invites = () => {
       console.log(data);
     })
     .catch(err => console.log(err))
+    
   }, [])
 
   return (<div> 
