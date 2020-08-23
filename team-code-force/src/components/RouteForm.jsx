@@ -55,7 +55,11 @@ const RouteForm = ({ getpark }) => {
             selected={recordDate}
             onChange={handleDate}
             name="startDate"
-            dateFormat="MM/dd/yyyy"
+            dateFormat="MM-dd-yyyy hh:mm aa"
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={20}
+            timeCaption="time"
           />
           <button className="btn btn-primary">Show Date</button>
         </div>
