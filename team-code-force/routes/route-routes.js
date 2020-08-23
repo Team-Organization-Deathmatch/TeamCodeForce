@@ -49,6 +49,10 @@ routeRouter.get('/get/:id', (req, res) => {
   });
 });
 
+routeRouter.post('/put', (req, res) => {
+  res.send('hello');
+});
+
 //post route
 routeRouter.post('/post', (req, res) => {
   const {
@@ -115,7 +119,7 @@ routeRouter.post('/post', (req, res) => {
 });
 
 //decline invite route
-routeRouter.put('/declineInvite', (req, res) => {
+routeRouter.post('/declineInvite', (req, res) => {
   const { id } = req.params;
   console.log('USER PUT');
   User.update(
@@ -135,8 +139,10 @@ routeRouter.put('/declineInvite', (req, res) => {
 
 //double check this. is this id_route correct??????
 //accept invite route
-routeRouter.put('/acceptInvite', (req, res) => {
-  const { id, id_route } = req.params;
+routeRouter.post('/acceptInvite', (req, res) => {
+  console.log('TESTING 1 2 3');
+  console.log(req.body);
+  const { id, id_route } = req.body.user;
   console.log('USER PUT 2 WTF');
   User.update(
     {
@@ -158,16 +164,28 @@ routeRouter.put('/acceptInvite', (req, res) => {
 
 //think this might send full user, not just number
 //get user id from phone number
-routeRouter.get('/get/:id', (req, res) => {
-  console.log('USER GET 3 WHY WOnt u CONSOLE LOG');
-  const { id } = req.params;
-  User.findAll({
-    where: { id: id },
-  })
-    .then((phoneNumber) => {
-      res.send(phoneNumber);
-    })
-    .catch((err) => res.status(500).send(err));
+routeRouter.post('/sendInvite', (req, res) => {
+  //res.statusCode(201);
+  // console.log(req.body.phoneNumber);
+  // console.log(req.user.id);
+  User.update(
+    {
+      id_routeInvite: req.user.id_route,
+    },
+    {
+      where: { phoneNumber: req.body.phoneNumber },
+    }
+  ).then(res.send());
+  // res.send('THIS IS A TEST');
+  // console.log('USER GET 3 WHY WOnt u CONSOLE LOG');
+  // const { id } = req.params;
+  // User.findAll({
+  //   where: { id: id },
+  // })
+  //   .then((phoneNumber) => {
+  //     res.send(phoneNumber);
+  //   })
+  //   .catch((err) => res.status(500).send(err));
 });
 
 module.exports = {

@@ -45,16 +45,18 @@ const InfoWindow = ({ url, name, desc, image, user, lat, lng }) => {
   };
 
   const addToRoutes = (data) => {
-    console.log(data);
-    console.log({ lat, lng });
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, userID: data.id, lat, lng }),
     };
     fetch('/route/put', requestOptions)
-      .then((response) => response.json())
-      .then((responseJson) => console.log(responseJson));
+      // .then((response) => response.json())
+      .then((data) => {
+        console.log(data, 'DATA BEING RETURNED FROM ADD TO ROUTES');
+        // return data;
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
