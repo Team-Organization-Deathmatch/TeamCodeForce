@@ -1,18 +1,18 @@
 require('dotenv').config();
 const axios = require('axios');
 
-const getWeatherData = (cityName) => {
-    axios({
+const getWeatherData = (lat, lon) => {
+    return axios({
         "method":"GET",
-        "url":"https://community-open-weather-map.p.rapidapi.com/forecast",
+        "url":"https://community-open-weather-map.p.rapidapi.com/weather",
         "headers":{
         "content-type":"application/octet-stream",
         "x-rapidapi-host":"community-open-weather-map.p.rapidapi.com",
         "x-rapidapi-key":process.env.WEATHER_API,
         "useQueryString":true
         },"params":{
-        "q":cityName,
-        "cnt":"1",
+        "lat":lat,
+        "lon":lon
         }
         })
         .then(({ data })=>{
