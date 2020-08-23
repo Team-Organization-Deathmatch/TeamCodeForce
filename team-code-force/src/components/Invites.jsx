@@ -2,10 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+const { REACT_APP_SERVER_PORT } = process.env;
 //Seb & Christopher's
 const Invites = ({ user }) => {
   let [users, setUsers] = useState();
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   axios
   //     .get('http://localhost:8000/notify/routechange')
@@ -21,6 +23,20 @@ const Invites = ({ user }) => {
   // const { REACT_APP_SERVER_PORT } = process.env;
   // const Invites = () => {
   //   let [users, setUsers] = useState()
+=======
+  useEffect(() => {
+    // axios
+    //   .get(`http://localhost:${REACT_APP_SERVER_PORT}/notify/routechange`)
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((err) => console.log(err));
+  }, []);
+  //end seb & c's
+// =======
+// const Invites = () => {
+//   let [users, setUsers] = useState()
+>>>>>>> e0d4b6050bcb8a6dcdfca0798672d713e4ec1871
 
   //   useEffect(() => {
   //     axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/invite`, { number: '+12163859616'}).then((data) => {
@@ -41,6 +57,15 @@ const Invites = ({ user }) => {
     fetch('/route/acceptInvite', requestOptions);
   };
 
+  const declineInvite = () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user }),
+    };
+    fetch('/route/declineInvite', requestOptions);
+  };
+
   return (
     <div>
       <button
@@ -50,7 +75,13 @@ const Invites = ({ user }) => {
       >
         Accept Invite
       </button>
-      <button>Decline Invite</button>
+      <button
+      onClick={() => {
+        declineInvite();
+      }}
+      >
+      Decline Invite
+      </button>
     </div>
   );
 };

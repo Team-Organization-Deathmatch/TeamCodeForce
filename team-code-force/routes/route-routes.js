@@ -1,6 +1,10 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable no-console */
 const routeRouter = require('express').Router();
+// const { Park, UserParkWishList, UserParkHistory, User } = require('../db/index');
+// require('dotenv').config();
+// const { routeUsersPhone, findRouteWeather } = require('../db/database')
+
 const {
   Park,
   // UserParkWishList,
@@ -49,8 +53,108 @@ routeRouter.get('/get/:id', (req, res) => {
   });
 });
 
-routeRouter.post('/put', (req, res) => {
-  res.send('hello');
+routeRouter.post('/addToRoute', (req, res) => {
+  console.log(req.body.userID, 'userID')
+  console.log(req.body)
+  // find user with userid
+  // if has route
+  // get routeid stored on user
+  // update;['''''''''''']
+
+  //if the route id is null, create route
+  // then update user with the route id
+  User.findAll({
+    where: {
+      id: req.body.userID
+    }
+  })
+    .then((user) => {
+      // console.log(user, 'user')
+      // console.log(user[0].dataValues.id_route, 'id route');
+      if (user[0].dataValues.id_route !== null) {
+        Route.findOne({
+          where: {
+            id: user[0].dataValues.id_route
+          }
+        })
+          .then((route) => {
+
+            if (route.park2 === null) {
+              Route.update(
+                {
+                  park2: req.body.name,
+                  lat2: req.body.lat,
+                  lon2: req.body.lng,
+                },
+                {
+                  where: {
+                    id: route.id,
+                  },
+                }
+              )
+            }
+            else if (route.park3 === null) {
+              Route.update(
+                {
+                  park3: req.body.name,
+                  lat3: req.body.lat,
+                  lon3: req.body.lng,
+                },
+                {
+                  where: {
+                    id: route.id,
+                  },
+                }
+              )
+            }
+            else if (route.park4 === null) {
+              Route.update(
+                {
+                  park4: req.body.name,
+                  lat4: req.body.lat,
+                  lon4: req.body.lng,
+                },
+                {
+                  where: {
+                    id: route.id,
+                  },
+                }
+              )
+            }
+            else if (route.park5 === null) {
+              Route.update(
+                {
+                  park5: req.body.name,
+                  lat5: req.body.lat,
+                  lon5: req.body.lng,
+                },
+                {
+                  where: {
+                    id: route.id,
+                  },
+                }
+              )
+            }
+
+
+          })
+      } else {
+        Route.create({
+          park1: req.body.name,
+          lat1: req.body.lat,
+          lon1: req.body.lng,
+
+        })
+        .then((route) => {
+          console.log(req.body.userID, 'line 147');
+          User.update({ id_route: route.id }, { where: {
+            id: req.body.userID
+          }})
+        })
+      }
+
+    })
+
 });
 
 //post route
@@ -120,10 +224,14 @@ routeRouter.post('/post', (req, res) => {
 
 //decline invite route
 routeRouter.post('/declineInvite', (req, res) => {
-  const { id } = req.params;
-  console.log('USER PUT');
+  // console.log('TESTING 1 2 3');
+  // console.log(req.body);
+  const { id } = req.body.user;
+  // console.log('USER PUT 2 WTF');
   User.update(
-    { id_routeInvite: null },
+    {
+      id_routeInvite: null,
+    },
     {
       where: {
         id: id,

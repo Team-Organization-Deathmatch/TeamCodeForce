@@ -10,7 +10,11 @@ const { authRouter } = require('./routes/auth-routes');
 const { parkRouter } = require('./routes/park-routes');
 const { notifyRouter } = require('./routes/notify-routes');
 const { routeRouter } = require('./routes/route-routes');
+<<<<<<< HEAD
 const bodyParser = require('body-parser');
+=======
+const bodyParser = require('body-parser')
+>>>>>>> e0d4b6050bcb8a6dcdfca0798672d713e4ec1871
 // const { session } = require('./.config.js');
 // ADD IN REQUIRE DOT ENV
 require('dotenv').config();

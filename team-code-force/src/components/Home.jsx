@@ -56,11 +56,11 @@ const Home = () => {
       });
   }, []);
 
-  useEffect(() => {
-    axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/dailyweather`, user).then(() => {
-      console.log('returned from journey');
-    })
-  })
+  // useEffect(() => {
+  //   axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/dailyweather`, user).then(() => {
+  //     console.log('returned from journey');
+  //   })
+  // })
 
   const logout = () => {
     console.log('logging out');
@@ -126,6 +126,10 @@ const Home = () => {
             <Route path='/login' component={SlideShow} />
             <Route path='/logout' component={SlideShow} />
             <Route path='/notsignedin' component={NotSignedIn} />
+            <Route
+                  path='/myRoute'
+                  render={(props) => <MyRoute {...props} user={user} />}
+                />
             {/* <Route path="/dashboard"  isAuthenticated={isAuthenticated} />} /> */}
             {isAuthenticated ? (
               <>

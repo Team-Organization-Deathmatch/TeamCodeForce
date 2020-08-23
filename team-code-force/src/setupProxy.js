@@ -17,6 +17,7 @@ module.exports = (app) => {
     })
   );
 
+<<<<<<< HEAD
   app.use(
     createProxyMiddleware('/park', {
       target: `http://localhost:${SERVER_PORT}`,
@@ -28,4 +29,13 @@ module.exports = (app) => {
       target: `http://localhost:${SERVER_PORT}`,
     })
   );
+=======
+  app.use(createProxyMiddleware('/route', {
+    target: `http://localhost:${SERVER_PORT}`,
+  }));
+
+  app.use(createProxyMiddleware('/park', {
+    target: `http://localhost:${SERVER_PORT}`,
+  }));
+>>>>>>> e0d4b6050bcb8a6dcdfca0798672d713e4ec1871
 };
