@@ -58,14 +58,30 @@ const MyRoute = ({ user }) => {
   // }, []);
   // myRoutesUpdate([{ id: 5 }]);
   // useEffect(() => getMyRoute());
+  const sendInvite = (number) => {
+    // const data = JSON.stringify({ 'testing 1 2 3' });
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber: number, user }),
+    };
+    fetch('/route/sendInvite', requestOptions)
+      .then((response) => console.log(response))
+      //.then((responeJson) => console.log(responeJson))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
       <div> MY ROUTES TESTING </div>
       <button
         onClick={() => {
-          getMyRoute();
-          console.log(document.getElementById('friendNumber').value);
+          // getMyRoute();
+          sendInvite(document.getElementById('friendNumber').value);
+          // console.log(document.getElementById('friendNumber').value);
+          console.log(
+            'testing, this button will send a phone number to database'
+          );
         }}
       >
         {' '}
@@ -76,23 +92,30 @@ const MyRoute = ({ user }) => {
         type='text'
         placeholder='Enter a friends phone #'
       />
-      {/* <div class='Routes'>
-        {myRoutes.map((route) => {
-          <div key={route.id}>
-            <br />
-            <div>{route.park}</div>
-            <br />
-            <br />
-            <div>{route.startDate}</div>
-            <div> {route.endDate} </div>
-          </div>;
-        })}
-      </div> */}
       <div>
+        <h1> Route Planner Table </h1>
         {myRoutes.map((route) => (
           <div>
-            <div> {route.park1} </div>
-            <div> {route.dateStart1} </div>
+            <h2> First Park </h2>
+            <div> Date Start: {route.dateStart1 || null} </div>
+            <div> Date End: {route.dateEnd1} </div>
+            <div> Park: {route.park1} </div>
+            <h2> Second Park </h2>
+            <div> Date Start: {route.dateStart2} </div>
+            <div> Date End: {route.dateEnd2} </div>
+            <div> Park: {route.park2} </div>
+            <h2> Third Park </h2>
+            <div> Date Start: {route.dateStart3} </div>
+            <div> Date End: {route.dateEnd3} </div>
+            <div> Park: {route.park3} </div>
+            <h2> Fourth Park </h2>
+            <div> Date Start: {route.dateStart4} </div>
+            <div> Date End: {route.dateEnd4} </div>
+            <div> Park: {route.park4} </div>
+            <h2> Fifth Park </h2>
+            <div> Date Start: {route.dateStart5} </div>
+            <div> Date End: {route.dateEnd5} </div>
+            <div> Park: {route.park5} </div>
           </div>
         ))}
       </div>
