@@ -138,7 +138,10 @@ const Home = () => {
                   render={(props) => <ParkPal {...props} user={user} />}
                 />
                 <Route path='/activity' component={Activities} />
-                <Route path='/invites' component={Invites} />
+                <Route
+                  path='/invites'
+                  render={(props) => <Invites {...props} user={user} />}
+                />
                 <Route
                   path='/myRoute'
                   render={(props) => <MyRoute {...props} user={user} />}
