@@ -15,6 +15,10 @@ module.exports = (app) => {
     target: `http://localhost:${SERVER_PORT}`,
   }));
 
+  app.use(createProxyMiddleware('/route', {
+    target: `http://localhost:${SERVER_PORT}`,
+  }));
+
   app.use(createProxyMiddleware('/park', {
     target: `http://localhost:${SERVER_PORT}`,
   }));
