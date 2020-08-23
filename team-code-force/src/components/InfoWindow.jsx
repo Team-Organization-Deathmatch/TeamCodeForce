@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable arrow-parens */
 import React from 'react';
+import axios from 'axios';
 
 const InfoWindow = ({ url, name, desc, image, user, lat, lng }) => {
   const infoWindowStyle = {
@@ -50,7 +51,7 @@ const InfoWindow = ({ url, name, desc, image, user, lat, lng }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, userID: data.id, lat, lng }),
     };
-    fetch('/route/put', requestOptions)
+    fetch('/route/addToRoute', requestOptions)
       // .then((response) => response.json())
       .then((data) => {
         console.log(data, 'DATA BEING RETURNED FROM ADD TO ROUTES');
