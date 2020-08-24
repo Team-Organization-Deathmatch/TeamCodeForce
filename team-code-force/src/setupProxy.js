@@ -7,7 +7,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = (app) => {
   app.use(
     createProxyMiddleware('/auth', {
-      target: `http://localhost:${SERVER_PORT}`,
+    target: `http://localhost:${SERVER_PORT}`,
     })
   );
 

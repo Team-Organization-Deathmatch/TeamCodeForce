@@ -56,11 +56,11 @@ const Home = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/dailyweather`, user).then(() => {
-  //     console.log('returned from journey');
-  //   })
-  // })
+  useEffect(() => {
+    axios.post(`http://localhost:${REACT_APP_SERVER_PORT}/notify/dailyweather`, user).then(() => {
+      console.log('returned from journey');
+    })
+  })
 
   const logout = () => {
     console.log('logging out');
