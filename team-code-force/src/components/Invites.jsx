@@ -39,15 +39,15 @@ const Invites = ({ user }) => {
     fetch('/route/declineInvite', requestOptions);
   };
   
-  const checkInvite = () => {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user }),
-    };
-    fetch('/route/checkInvite', requestOptions);
-  };
-  const [invites, updateInvites] = useState([ ])
+  // const checkInvite = () => {
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ user }),
+  //   };
+  //   fetch('/route/checkInvite', requestOptions);
+  // };
+  // const [invites, updateInvites] = useState([ ])
   // useEffect(() => {
   //   // checkInvite()
   //   //   .then((data)=> {console.log('data', data)})
@@ -107,7 +107,6 @@ const Invites = ({ user }) => {
 
   return (
     <div>
-      <h3> Invitation to Route: </h3>
       <button
         onClick={() => {
           acceptInvite();
@@ -122,7 +121,7 @@ const Invites = ({ user }) => {
       >
       Decline Invite
       </button>
-      <h1> Route Planner Table </h1>
+      <h1> Invitation to Route: </h1>
       {myRoutes.map((route) => (
         <div>
           <h2> First Park </h2>
