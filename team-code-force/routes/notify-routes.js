@@ -33,7 +33,7 @@ notifyRouter.post('/dailyweather', (req, res) => {
   findRouteWeather(req.user.dataValues.id_route, '2020-08-22')
   .then(data => {
     console.log(data, 'in notify routes');
-    sendNotification(`The weather at your current location is ${data[3]}, with a temperature of ${data[0]}. It feels like ${data[1]} and the humidity is ${data[2]}`, '+12163859616');
+    sendNotification(`The weather at your current location is ${data[3]}, with a temperature of ${data[0]}. It feels like ${data[1]} and the humidity is ${data[2]}`, '+12163859');
     res.send(data)
   })
   //send the weather data?

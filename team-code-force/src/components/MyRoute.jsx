@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 
 const MyRoute = ({ user }) => {
   const sendNumberAndUser = (friendNumber) => {
@@ -67,7 +68,9 @@ const MyRoute = ({ user }) => {
     };
     fetch('/route/sendInvite', requestOptions)
       .then((response) => console.log(response))
-      //.then((responeJson) => console.log(responeJson))
+      Axios.post('/notify/invite', {number: number}).then(() => {
+        console.log(`invite sent to ${number}`)
+      })
       .catch((err) => console.log(err));
   };
 
