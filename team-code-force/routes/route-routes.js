@@ -52,6 +52,31 @@ routeRouter.get('/get/:id', (req, res) => {
       .catch((err) => res.status(500).send(err));
   });
 });
+//Get Route Invite
+routeRouter.get('/InviteRouteGetter/:id', (req, res) => {
+  //console.log('TESTING 1 2 3');
+  const { id } = req.params;
+  //console.log(id, 'THIS IS THE ID');
+  // console.log(req.params);
+
+  User.findAll({
+    where: { id: id },
+  }).then((user) => {
+    //console.log(user);
+    console.log(
+      user[0].dataValues.id_routeInvite,
+      'THIS IS THE USER ID ROUTE NUMBER'
+    );
+    Route.findAll({
+      where: { id: user[0].dataValues.id_routeInvite },
+    })
+      .then((data) => {
+        res.send(data);
+        //console.log(data);
+      })
+      .catch((err) => res.status(500).send(err));
+  });
+});
 
 routeRouter.post('/addToRoute', (req, res) => {
   console.log(req.body.userID, 'userID')
