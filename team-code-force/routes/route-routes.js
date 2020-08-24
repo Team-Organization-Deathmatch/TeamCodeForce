@@ -52,6 +52,31 @@ routeRouter.get('/get/:id', (req, res) => {
       .catch((err) => res.status(500).send(err));
   });
 });
+//Get Route Invite
+routeRouter.get('/InviteRouteGetter/:id', (req, res) => {
+  //console.log('TESTING 1 2 3');
+  const { id } = req.params;
+  //console.log(id, 'THIS IS THE ID');
+  // console.log(req.params);
+
+  User.findAll({
+    where: { id: id },
+  }).then((user) => {
+    //console.log(user);
+    console.log(
+      user[0].dataValues.id_routeInvite,
+      'THIS IS THE USER ID ROUTE NUMBER'
+    );
+    Route.findAll({
+      where: { id: user[0].dataValues.id_routeInvite },
+    })
+      .then((data) => {
+        res.send(data);
+        //console.log(data);
+      })
+      .catch((err) => res.status(500).send(err));
+  });
+});
 
 routeRouter.post('/addToRoute', (req, res) => {
   console.log(req.body.userID, 'userID')
@@ -265,7 +290,7 @@ routeRouter.post('/acceptInvite', (req, res) => {
   )
     .then((data) => {
       // console.log('data', data);
-      res.json({ message: 'Accepted Invitation to Route' });
+      res.redirect('http://localhost:3000/myRoute');
     })
     .catch((err) => res.status(500).send(err));
 });
@@ -295,6 +320,28 @@ routeRouter.post('/sendInvite', (req, res) => {
   //   })
   //   .catch((err) => res.status(500).send(err));
 });
+
+routeRouter.get('/checkInvite/:id', (req, res) => {
+  console.log('req.body', req.body)
+  const { id } = req.params;
+  User.findOne(
+    {
+      where: { id:id },
+    }
+  )
+.then((user)=>{
+  Route.findOne(
+    {
+      where: {id: user.id_routeInvite}
+    }
+    
+  )  
+  .then((route)=> {
+    console.log('route', route)
+    res.send( { route: route })})
+    .catch((err)=> {console.log('err', err)})
+  })
+  })
 
 module.exports = {
   routeRouter,

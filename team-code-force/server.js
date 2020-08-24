@@ -8,8 +8,9 @@ const passport = require('passport');
 require('./passport/GoogleStrategy');
 const { authRouter } = require('./routes/auth-routes');
 const { parkRouter } = require('./routes/park-routes');
-const { notifyRouter } = require('./routes/notify-routes');
 const { routeRouter } = require('./routes/route-routes');
+const { notifyRouter } = require('./routes/notify-routes');
+// const { routeRouter } = require('./routes/route-routes');
 const bodyParser = require('body-parser')
 // const { session } = require('./.config.js');
 // ADD IN REQUIRE DOT ENV
