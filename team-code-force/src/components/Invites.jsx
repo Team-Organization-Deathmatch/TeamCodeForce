@@ -2,24 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+// import { Redirect } from "react-router-dom";
 const { REACT_APP_SERVER_PORT } = process.env;
 //Seb & Christopher's
 const Invites = ({ user }) => {
-  // let [users, setUsers] = useState();
+  let [users, setUsers] = useState();
 
-  // useEffect(() => {
-    // axios
-    //   .get(`http://localhost:${REACT_APP_SERVER_PORT}/notify/routechange`)
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((err) => console.log(err));
-  // }, []);
-  //end seb & c's
-// =======
-
-
-//seb and c's add's
+//reroute to my route
   const acceptInvite = () => {
     console.log(user);
     const requestOptions = {
@@ -47,23 +36,23 @@ const Invites = ({ user }) => {
   //   };
   //   fetch('/route/checkInvite', requestOptions);
   // };
-  // const [invites, updateInvites] = useState([ ])
-  // useEffect(() => {
-  //   // checkInvite()
-  //   //   .then((data)=> {console.log('data', data)})
-  //   let userID = user.id;
-  //   const requestOptions = {
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json' },
-  //   };
-  //   fetch(`/route/checkInvite/${userID}`, requestOptions)
-  //   .then((data)=> {
-  //     data.json()})
-  //   .then((response) => {
-  //     console.log(response)
+  const [invites, updateInvites] = useState([ ])
+  useEffect(() => {
+    // checkInvite()
+      // .then((data)=> {console.log('data', data)})
+    let userID = user.id;
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    };
+    fetch(`/route/checkInvite/${userID}`, requestOptions)
+    .then((data)=> {
+      data.json()})
+    .then((response) => {
+      console.log(response)
 
-  //   })
-  //   }, []);
+    })
+    }, []);
 
   //imported from myRoutes
   const getMyRoute = async () => {
@@ -117,6 +106,9 @@ const Invites = ({ user }) => {
       <button
       onClick={() => {
         declineInvite();
+        // <Link to="/login" /></Link>;
+        // (<Redirect to="/myRoute"></Redirect>)
+
       }}
       >
       Decline Invite
