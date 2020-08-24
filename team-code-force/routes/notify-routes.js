@@ -41,7 +41,7 @@ notifyRouter.post('/dailyweather', (req, res) => {
 
 notifyRouter.post('/invite', (req, res) => {
   console.log(req.body);
-  sendNotification(`you have been invited to join a route!`, '+12163859616');
+  sendNotification(`you have been invited to join a route!`, `${req.body.number}`);
 })
 
 module.exports = {
